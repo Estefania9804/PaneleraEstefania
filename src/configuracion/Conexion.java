@@ -19,8 +19,7 @@ import java.util.logging.Logger;
  */
 public class Conexion {
     String bd="panelera";
-    //String url="jdbc:mysql://localhost:3306/";
-    String url="localhost:3306/";
+    String url="jdbc:mysql://localhost:3306/";    
     String user="root";
     String password="12345678";
     String driver="com.mysql.cj.jdbc.Driver";

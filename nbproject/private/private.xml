@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Users/ESTEFANIAHURTADOOSPI/Documents/NetBeansProjects/PaneleraEstefania/src/Vista/AdministracionEmpleadosVista.java</file>
-            <file>file:/D:/Users/ESTEFANIAHURTADOOSPI/Documents/NetBeansProjects/PaneleraEstefania/src/modelo/Funcionarios.java</file>
+            <file>file:/D:/Users/ESTEFANIAHURTADOOSPI/Documents/NetBeansProjects/PaneleraEstefania/src/modelo/PedidoDTO.java</file>
+            <file>file:/D:/Users/ESTEFANIAHURTADOOSPI/Documents/NetBeansProjects/PaneleraEstefania/src/modelo/usuarioDTO.java</file>
             <file>file:/D:/Users/ESTEFANIAHURTADOOSPI/Documents/NetBeansProjects/PaneleraEstefania/src/configuracion/Conexion.java</file>
-            <file>file:/D:/Users/ESTEFANIAHURTADOOSPI/Documents/NetBeansProjects/PaneleraEstefania/src/Vista/EditarEmpleadosVista.java</file>
-            <file>file:/D:/Users/ESTEFANIAHURTADOOSPI/Documents/NetBeansProjects/PaneleraEstefania/src/Vista/CreacionPedidoVista.java</file>
-            <file>file:/D:/Users/ESTEFANIAHURTADOOSPI/Documents/NetBeansProjects/PaneleraEstefania/src/modelo/EmpleadosDTO.java</file>
-            <file>file:/D:/Users/ESTEFANIAHURTADOOSPI/Documents/NetBeansProjects/PaneleraEstefania/src/Vista/ListaPedidosVista.java</file>
-            <file>file:/D:/Users/ESTEFANIAHURTADOOSPI/Documents/NetBeansProjects/PaneleraEstefania/src/Vista/AdministracionFuncionariosVista.java</file>
         </group>
     </open-files>
 </project-private>
