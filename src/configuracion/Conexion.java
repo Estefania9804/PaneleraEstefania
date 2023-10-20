@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Clase utilizada para conectar a una base de datos.
  * @author estefania
  */
 public class Conexion {
