@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 /**
  * Clase utilizada para conectar a una base de datos.
+ * Gracias
  * @author estefania
  */
 public class Conexion {
