@@ -33,6 +33,7 @@ public class ListaPedidosVista extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnCrearPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,6 +79,13 @@ public class ListaPedidosVista extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("EXPORTACIONES ESTEFANIA");
 
+        btnCrearPedido.setText("Crear pedido");
+        btnCrearPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearPedidoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,6 +95,8 @@ public class ListaPedidosVista extends javax.swing.JFrame {
                 .addComponent(btnEditar)
                 .addGap(28, 28, 28)
                 .addComponent(btnEliminar)
+                .addGap(18, 18, 18)
+                .addComponent(btnCrearPedido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnMenu)
                 .addGap(30, 30, 30))
@@ -110,7 +120,8 @@ public class ListaPedidosVista extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
                     .addComponent(btnEliminar)
-                    .addComponent(btnMenu))
+                    .addComponent(btnMenu)
+                    .addComponent(btnCrearPedido))
                 .addGap(35, 35, 35))
         );
 
@@ -123,9 +134,14 @@ public class ListaPedidosVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        new CreacionPedidoVista().setVisible(true);
+        new EditarPedidoVista().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnCrearPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPedidoActionPerformed
+        new CreacionPedidoVista().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCrearPedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,6 +179,7 @@ public class ListaPedidosVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCrearPedido;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnMenu;

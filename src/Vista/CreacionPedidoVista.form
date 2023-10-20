@@ -271,6 +271,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Seleccionar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSeleccionarEActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnSeleccionarF">
       <Properties>
@@ -279,6 +282,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Seleccionar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSeleccionarFActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnGuardar">
       <Properties>

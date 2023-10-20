@@ -86,9 +86,19 @@ public class CreacionPedidoVista extends javax.swing.JFrame {
 
         btnSeleccionarE.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSeleccionarE.setText("Seleccionar");
+        btnSeleccionarE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarEActionPerformed(evt);
+            }
+        });
 
         btnSeleccionarF.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSeleccionarF.setText("Seleccionar");
+        btnSeleccionarF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarFActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnGuardar.setText("Guardar pedido");
@@ -241,6 +251,16 @@ public class CreacionPedidoVista extends javax.swing.JFrame {
         new PrincipalVista().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnSeleccionarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarEActionPerformed
+        new AdministarUsuarioVista().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSeleccionarEActionPerformed
+
+    private void btnSeleccionarFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarFActionPerformed
+        new AdministarUsuarioVista().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSeleccionarFActionPerformed
 
     /**
      * @param args the command line arguments

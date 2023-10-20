@@ -15,6 +15,7 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
      */
     public AdministarUsuarioVista() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -28,10 +29,10 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnCrearUsuario = new javax.swing.JButton();
+        btnEliminarUsuario = new javax.swing.JButton();
+        btnEditarUsuario = new javax.swing.JButton();
+        btnMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,13 +49,28 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Crear usuario");
+        btnCrearUsuario.setText("Crear usuario");
+        btnCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearUsuarioActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Eliminar usuario");
+        btnEliminarUsuario.setText("Eliminar usuario");
 
-        jButton3.setText("Editar usuario");
+        btnEditarUsuario.setText("Editar usuario");
+        btnEditarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarUsuarioActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Menú principal");
+        btnMenu.setText("Menú principal");
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,13 +83,13 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
-                        .addComponent(jButton1)
+                        .addComponent(btnCrearUsuario)
                         .addGap(40, 40, 40)
-                        .addComponent(jButton2)
+                        .addComponent(btnEliminarUsuario)
                         .addGap(55, 55, 55)
-                        .addComponent(jButton3)
+                        .addComponent(btnEditarUsuario)
                         .addGap(34, 34, 34)
-                        .addComponent(jButton4)))
+                        .addComponent(btnMenu)))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -83,15 +99,30 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnCrearUsuario)
+                    .addComponent(btnEliminarUsuario)
+                    .addComponent(btnEditarUsuario)
+                    .addComponent(btnMenu))
                 .addGap(68, 68, 68))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
+        new CrearUsuarioVista().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCrearUsuarioActionPerformed
+
+    private void btnEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarUsuarioActionPerformed
+        new EditarUsuarioVista().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnEditarUsuarioActionPerformed
+
+    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+        new PrincipalVista().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,10 +160,10 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnCrearUsuario;
+    private javax.swing.JButton btnEditarUsuario;
+    private javax.swing.JButton btnEliminarUsuario;
+    private javax.swing.JButton btnMenu;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

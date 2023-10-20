@@ -37,8 +37,8 @@ public class PedidoControlador {
                 pedidoDTO.setTipoPago(resul.getString ("tipoPago"));
                 pedidoDTO.setFechaEnvio(resul.getDate("fechaEnvio"));
                 pedidoDTO.setFechaEstimadaEntrega(resul.getDate("fechaEstimadaEntrega"));
-                pedidoDTO.setEmpleadoID(resul.getInt ("empleadoID"));
-                pedidoDTO.setFuncionarioID(resul.getInt ("funcionarioID"));
+                pedidoDTO.setUsuarioID(resul.getInt ("usuarioID"));
+                
                 
 
                

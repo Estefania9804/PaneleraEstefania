@@ -33,10 +33,9 @@ public class PrincipalVista extends javax.swing.JFrame {
 
         btnNuevaExportación = new javax.swing.JButton();
         btnVerPedidos = new javax.swing.JButton();
-        btnAdministrarEmpleados = new javax.swing.JButton();
-        btnAdministrarFuncionarios = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
+        btnAdministarUsuarios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,22 +55,6 @@ public class PrincipalVista extends javax.swing.JFrame {
             }
         });
 
-        btnAdministrarEmpleados.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnAdministrarEmpleados.setText("Administrar empleados");
-        btnAdministrarEmpleados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdministrarEmpleadosActionPerformed(evt);
-            }
-        });
-
-        btnAdministrarFuncionarios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnAdministrarFuncionarios.setText("Administrar funcionarios");
-        btnAdministrarFuncionarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdministrarFuncionariosActionPerformed(evt);
-            }
-        });
-
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 255));
@@ -86,43 +69,53 @@ public class PrincipalVista extends javax.swing.JFrame {
             }
         });
 
+        btnAdministarUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAdministarUsuarios.setText("Administrar empleados y funcionarios");
+        btnAdministarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdministarUsuariosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnVerPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                            .addComponent(btnNuevaExportación, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+                        .addGap(191, 191, 191))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnAdministarUsuarios)
+                        .addGap(137, 137, 137))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(194, 194, 194)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnAdministrarEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnVerPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAdministrarFuncionarios)
-                            .addComponent(btnNuevaExportación, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(btnCerrarSesion))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(108, 108, 108)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(120, Short.MAX_VALUE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(btnCerrarSesion)))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addComponent(btnNuevaExportación, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addComponent(btnVerPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnAdministrarEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnAdministrarFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(27, 27, 27)
+                .addComponent(btnAdministarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
                 .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addGap(55, 55, 55))
         );
 
         pack();
@@ -141,20 +134,15 @@ public class PrincipalVista extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVerPedidosActionPerformed
 
-    private void btnAdministrarEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarEmpleadosActionPerformed
-        new AdministracionEmpleadosVista().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnAdministrarEmpleadosActionPerformed
-
-    private void btnAdministrarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarFuncionariosActionPerformed
-        new AdministracionFuncionariosVista().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnAdministrarFuncionariosActionPerformed
-
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         new IniciarSesionVista().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnAdministarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministarUsuariosActionPerformed
+        new AdministarUsuarioVista().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAdministarUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,8 +180,7 @@ public class PrincipalVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdministrarEmpleados;
-    private javax.swing.JButton btnAdministrarFuncionarios;
+    private javax.swing.JButton btnAdministarUsuarios;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnNuevaExportación;
     private javax.swing.JButton btnVerPedidos;
