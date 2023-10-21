@@ -21,7 +21,8 @@ public class Conexion {
     String bd="panelera";
     String url="jdbc:mysql://localhost:3306/";    
     String user="root";
-    String password="12345678";
+    //String password="12345678";
+    String password="admin";
     String driver="com.mysql.cj.jdbc.Driver";
     Connection cx;
     public Conexion(){

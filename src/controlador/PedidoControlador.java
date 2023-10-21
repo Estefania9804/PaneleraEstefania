@@ -26,7 +26,6 @@ public class PedidoControlador {
             while (resul.next()) {
                 PedidoDTO pedidoDTO = new PedidoDTO();
                 System.out.println(resul.getString ("presentacion") + " - " + resul.getString ("tipoEnvio"));
-
                 
                 pedidoDTO.setId(resul.getInt ("ID"));
                 pedidoDTO.setCantidad(resul.getInt ("cantidad"));
@@ -37,13 +36,9 @@ public class PedidoControlador {
                 pedidoDTO.setTipoPago(resul.getString ("tipoPago"));
                 pedidoDTO.setFechaEnvio(resul.getDate("fechaEnvio"));
                 pedidoDTO.setFechaEstimadaEntrega(resul.getDate("fechaEstimadaEntrega"));
-                pedidoDTO.setUsuarioID(resul.getInt ("usuarioID"));
-                
-                
+                pedidoDTO.setUsuarioID(resul.getInt ("usuarioID"));             
 
-               
-                pedidos.add(pedidoDTO);               
-               
+                pedidos.add(pedidoDTO);              
             } 
         } catch (Exception e) {
             System.out.println(e);

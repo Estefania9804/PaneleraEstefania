@@ -127,9 +127,6 @@ public class PrincipalVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevaExportaciónActionPerformed
 
     private void btnVerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPedidosActionPerformed
-        PedidoControlador pedidoControlador = new PedidoControlador();
-        ArrayList<PedidoDTO> pedidoDTOs = pedidoControlador.consultarPedidos();
-        System.out.println("ESTEFANIA : " + pedidoDTOs);
         new ListaPedidosVista().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVerPedidosActionPerformed

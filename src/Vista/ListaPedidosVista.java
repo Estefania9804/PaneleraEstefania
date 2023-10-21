@@ -4,18 +4,52 @@
  */
 package Vista;
 
+import controlador.PedidoControlador;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import modelo.PedidoDTO;
+
 /**
  *
  * @author ESTEFANIAHURTADOOSPI
  */
 public class ListaPedidosVista extends javax.swing.JFrame {
 
+    DefaultTableModel modelo;
+    
     /**
      * Creates new form ListaPedidosVista
      */
     public ListaPedidosVista() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        // Se procede a obtener del controlador la informacion de tabla pedidos de la base de datos.
+        PedidoControlador pedidoControlador = new PedidoControlador();
+        ArrayList<PedidoDTO> pedidoDTOs = pedidoControlador.consultarPedidos();
+        System.out.println("ESTEFANIA : " + pedidoDTOs);
+        
+        // Se colocan los nombres de la columnas que va a tener la tabla que se muestra al usuario en la pagina de Ver Pedidos.
+        String[] titulos_tabla = {
+            "ID", "Cantidad", "Presentación", "Tipo de Envío", "Ciudad Origen", "Ciudad Destino", "Tipo de Pago", "Fecha de Envío", "Fecha Estimada de Entrega"};
+        modelo = new DefaultTableModel(null, titulos_tabla);
+        tPedidos.setModel(modelo);
+        
+        // Se itera uno a uno los datos encontrados en la tabla Pedidos y se agregan las filas (Rows) a la tabla que se muestra al usuario.
+        for (PedidoDTO pedidoDTO : pedidoDTOs) {
+            Object[] oPedido = {
+                pedidoDTO.getId(), 
+                pedidoDTO.getCantidad(), 
+                pedidoDTO.getPresentacion(), 
+                pedidoDTO.getTipoEnvio(), 
+                pedidoDTO.getCiudadOrigen(), 
+                pedidoDTO.getCiudadDestino(),
+                pedidoDTO.getTipoPago(),
+                pedidoDTO.getFechaEnvio(),
+                pedidoDTO.getFechaEstimadaEntrega()
+            };
+            modelo.addRow(oPedido);
+        }        
     }
 
     /**
@@ -91,32 +125,32 @@ public class ListaPedidosVista extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(205, 205, 205)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnEditar)
                 .addGap(28, 28, 28)
                 .addComponent(btnEliminar)
                 .addGap(18, 18, 18)
                 .addComponent(btnCrearPedido)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
                 .addComponent(btnMenu)
                 .addGap(30, 30, 30))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
             .addGroup(layout.createSequentialGroup()
-                .addGap(205, 205, 205)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
                     .addComponent(btnEliminar)
