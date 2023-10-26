@@ -4,11 +4,18 @@
  */
 package Vista;
 
+import controlador.UsuarioControlador;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import modelo.UsuarioDTO;
+
 /**
  *
  * @author estefania
  */
 public class AdministarUsuarioVista extends javax.swing.JFrame {
+    
+    DefaultTableModel modelo;
 
     /**
      * Creates new form AdministarUsuarioVista
@@ -16,6 +23,36 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
     public AdministarUsuarioVista() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        UsuarioControlador usuarioControlador = new UsuarioControlador();
+        ArrayList<UsuarioDTO> usuarioDTOs = usuarioControlador.consultarUsuarios();
+        System.out.println("ESTEFANIA : " + usuarioDTOs);
+        
+    
+        String[] titulos_tabla = {
+            "ID", "Nombres", "Apellidos", "Tipo de documento", "Documento", "Fecha de nacimiento", "Correo", "Celular", "Pais","Ciudad","Dirección","Rol","Cargo"};
+        modelo = new DefaultTableModel(null, titulos_tabla);
+        tUsuarios.setModel(modelo);
+        
+       
+        for (UsuarioDTO usuarioDTO : usuarioDTOs) {
+            Object[] oUsuario = {
+                usuarioDTO.getId(), 
+                usuarioDTO.getNombres(), 
+                usuarioDTO.getApellidos(), 
+                usuarioDTO.getTipoDocumento(), 
+                usuarioDTO.getDocumento(), 
+                usuarioDTO.getFechaNacimiento(),
+                usuarioDTO.getCorreo(),
+                usuarioDTO.getCelular(),
+                usuarioDTO.getPais(),
+       		usuarioDTO.getCiudad(),
+		usuarioDTO.getDireccion(),
+		usuarioDTO.getRol(),
+		usuarioDTO.getCargo()
+            };
+            modelo.addRow(oUsuario);
+        }        
     }
 
     /**
@@ -28,7 +65,7 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tUsuarios = new javax.swing.JTable();
         btnCrearUsuario = new javax.swing.JButton();
         btnEliminarUsuario = new javax.swing.JButton();
         btnEditarUsuario = new javax.swing.JButton();
@@ -36,7 +73,7 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -44,10 +81,10 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nombres", "Apellidos", "Tipo documento", "Documento", "Fecha nacimiento", "Email", "Celular", "País", "Ciudad", "Dirección", "Rol", "Cargo"
+                "ID", "Nombres", "Apellidos", "Tipo documento", "Documento", "Fecha nacimiento", "Correo", "Celular", "País", "Ciudad", "Dirección", "Rol", "Cargo"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tUsuarios);
 
         btnCrearUsuario.setText("Crear usuario");
         btnCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -165,6 +202,6 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarUsuario;
     private javax.swing.JButton btnMenu;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tUsuarios;
     // End of variables declaration//GEN-END:variables
 }

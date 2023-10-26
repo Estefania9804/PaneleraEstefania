@@ -10,7 +10,7 @@ import java.sql.Date;
  *
  * @author estefania
  */
-public class usuarioDTO {
+public class UsuarioDTO {
     
     int id;
     String nombres;
