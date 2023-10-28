@@ -6,6 +6,7 @@ package Vista;
 
 import controlador.PedidoControlador;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.PedidoDTO;
 
@@ -24,32 +25,13 @@ public class ListaPedidosVista extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        // Se procede a obtener del controlador la informacion de tabla pedidos de la base de datos.
-        PedidoControlador pedidoControlador = new PedidoControlador();
-        ArrayList<PedidoDTO> pedidoDTOs = pedidoControlador.consultarPedidos();
-        System.out.println("ESTEFANIA : " + pedidoDTOs);
-        
         // Se colocan los nombres de la columnas que va a tener la tabla que se muestra al usuario en la pagina de Ver Pedidos.
         String[] titulos_tabla = {
             "ID", "Cantidad", "Presentación", "Tipo de Envío", "Ciudad Origen", "Ciudad Destino", "Tipo de Pago", "Fecha de Envío", "Fecha Estimada de Entrega"};
         modelo = new DefaultTableModel(null, titulos_tabla);
         tPedidos.setModel(modelo);
         
-        // Se itera uno a uno los datos encontrados en la tabla Pedidos y se agregan las filas (Rows) a la tabla que se muestra al usuario.
-        for (PedidoDTO pedidoDTO : pedidoDTOs) {
-            Object[] oPedido = {
-                pedidoDTO.getId(), 
-                pedidoDTO.getCantidad(), 
-                pedidoDTO.getPresentacion(), 
-                pedidoDTO.getTipoEnvio(), 
-                pedidoDTO.getCiudadOrigen(), 
-                pedidoDTO.getCiudadDestino(),
-                pedidoDTO.getTipoPago(),
-                pedidoDTO.getFechaEnvio(),
-                pedidoDTO.getFechaEstimadaEntrega()
-            };
-            modelo.addRow(oPedido);
-        }        
+        buscarYcolocarPedidosEnTabla();
     }
 
     /**
@@ -99,6 +81,11 @@ public class ListaPedidosVista extends javax.swing.JFrame {
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnMenu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnMenu.setText("Menú principal");
@@ -177,6 +164,49 @@ public class ListaPedidosVista extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCrearPedidoActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // Se procede a obtener el controlador.
+        PedidoControlador pedidoControlador = new PedidoControlador();
+        
+        boolean flag = pedidoControlador.eliminarPedido(Integer.parseInt(tPedidos.getValueAt(tPedidos.getSelectedRow(),0).toString()));
+        if (flag) {
+            System.out.println("Borrado con exito");
+            JOptionPane.showMessageDialog(null, "Pedido borrado con exito");
+            int count = modelo.getRowCount();
+            for (int i = 0; i< count; i++) {
+                modelo.removeRow(0);
+            }
+            
+            buscarYcolocarPedidosEnTabla();
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    /**
+     * Metodo privado para buscar los datos de los pedidos de la base de datos y 
+     * posteriormente agregarlos a la tabla que se muestra al usuario.
+     */
+    private void buscarYcolocarPedidosEnTabla() {
+        // Se procede a obtener del controlador la informacion de tabla pedidos de la base de datos.
+        PedidoControlador pedidoControlador = new PedidoControlador();
+        
+        ArrayList<PedidoDTO> pedidoDTOs = pedidoControlador.consultarPedidos();
+        // Se itera uno a uno los datos encontrados en la tabla Pedidos de la base de datos y se agregan las filas (Rows) a la tabla que se muestra al usuario.
+        for (PedidoDTO pedidoDTO : pedidoDTOs) {
+            Object[] oPedido = {
+                pedidoDTO.getId(), 
+                pedidoDTO.getCantidad(), 
+                pedidoDTO.getPresentacion(), 
+                pedidoDTO.getTipoEnvio(), 
+                pedidoDTO.getCiudadOrigen(), 
+                pedidoDTO.getCiudadDestino(),
+                pedidoDTO.getTipoPago(),
+                pedidoDTO.getFechaEnvio(),
+                pedidoDTO.getFechaEstimadaEntrega()
+            };
+            modelo.addRow(oPedido);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
