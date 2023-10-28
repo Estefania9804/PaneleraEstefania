@@ -25,6 +25,7 @@ public class UsuarioDTO {
     String direccion;
     String rol;
     String cargo;
+    String usuario;
     String contraseña;
 
     public int getId() {
@@ -131,6 +132,14 @@ public class UsuarioDTO {
         this.cargo = cargo;
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
     public String getContraseña() {
         return contraseña;
     }
@@ -138,6 +147,8 @@ public class UsuarioDTO {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+
+    
     
     
     

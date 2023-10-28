@@ -50,4 +50,21 @@ public class UsuarioControlador {
         return usuarios;
     }
     
+    public boolean crearUsuario(UsuarioDTO usuarioDTO){
+        
+        boolean flag = false;
+        Conexion conn = new Conexion();
+        conn.conectar();
+        int res = conn.ejecutarSentanciasql("INSERT INTO 'usuario' ('nombres','apellidos','tipoDocumento','documento','fechaNacimiento','correo','celular','pais','ciudad','dirección','rol','cargo','usuario','contraseña') VALUES ('"+usuarioDTO.getNombres()+"','"+usuarioDTO.getApellidos()+"','"+usuarioDTO.getTipoDocumento()+"','"+usuarioDTO.getDocumento()+"','"+usuarioDTO.getFechaNacimiento()+"','"+usuarioDTO.getCorreo()+"','"+usuarioDTO.getCelular()+"','"+usuarioDTO.getPais()+"','"+usuarioDTO.getCiudad()+"','"+usuarioDTO.getDireccion()+"','"+usuarioDTO.getRol()+"','"+usuarioDTO.getCargo()+"','"+usuarioDTO.getUsuario()+"','"+usuarioDTO.getContraseña()+"');");
+        
+        if (res==1){
+            System.out.println("Usuario creado con exito");
+            flag = true;
+        }
+        return flag;
+       
+    }
+    
+    
+    
 }

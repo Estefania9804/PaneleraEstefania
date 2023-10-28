@@ -147,6 +147,7 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
+        CrearUsuarioVista crearUsuarioVista = new CrearUsuarioVista();
         new CrearUsuarioVista().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCrearUsuarioActionPerformed

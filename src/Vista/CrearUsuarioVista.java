@@ -9,6 +9,8 @@ package Vista;
  * @author estefania
  */
 public class CrearUsuarioVista extends javax.swing.JFrame {
+    
+    
 
     /**
      * Creates new form CrearUsuarioVista
