@@ -6,6 +6,7 @@ package Vista;
 
 import controlador.UsuarioControlador;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.UsuarioDTO;
 
@@ -29,12 +30,22 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
         System.out.println("ESTEFANIA : " + usuarioDTOs);
         
     
-        String[] titulos_tabla = {
+         String[] titulos_tabla = {
             "ID", "Nombres", "Apellidos", "Tipo de documento", "Documento", "Fecha de nacimiento", "Correo", "Celular", "Pais","Ciudad","Dirección","Rol","Cargo"};
+
         modelo = new DefaultTableModel(null, titulos_tabla);
         tUsuarios.setModel(modelo);
         
+        buscarYcolocarUsuariosEnTabla();       
+    }
+    
+    
+     private void buscarYcolocarUsuariosEnTabla() {
        
+        UsuarioControlador usuarioControlador = new UsuarioControlador();
+        
+        ArrayList<UsuarioDTO> usuarioDTOs = usuarioControlador.consultarUsuarios();
+        
         for (UsuarioDTO usuarioDTO : usuarioDTOs) {
             Object[] oUsuario = {
                 usuarioDTO.getId(), 
@@ -52,7 +63,7 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
 		usuarioDTO.getCargo()
             };
             modelo.addRow(oUsuario);
-        }        
+        }
     }
 
     /**
@@ -67,7 +78,7 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tUsuarios = new javax.swing.JTable();
         btnCrearUsuario = new javax.swing.JButton();
-        btnEliminarUsuario = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         btnEditarUsuario = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
 
@@ -93,7 +104,12 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
             }
         });
 
-        btnEliminarUsuario.setText("Eliminar usuario");
+        btnEliminar.setText("Eliminar usuario");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnEditarUsuario.setText("Editar usuario");
         btnEditarUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +138,7 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
                         .addGap(52, 52, 52)
                         .addComponent(btnCrearUsuario)
                         .addGap(40, 40, 40)
-                        .addComponent(btnEliminarUsuario)
+                        .addComponent(btnEliminar)
                         .addGap(55, 55, 55)
                         .addComponent(btnEditarUsuario)
                         .addGap(34, 34, 34)
@@ -137,7 +153,7 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCrearUsuario)
-                    .addComponent(btnEliminarUsuario)
+                    .addComponent(btnEliminar)
                     .addComponent(btnEditarUsuario)
                     .addComponent(btnMenu))
                 .addGap(68, 68, 68))
@@ -150,6 +166,7 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
         CrearUsuarioVista crearUsuarioVista = new CrearUsuarioVista();
         new CrearUsuarioVista().setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
     private void btnEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarUsuarioActionPerformed
@@ -161,6 +178,21 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
         new PrincipalVista().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnMenuActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+         UsuarioControlador usuarioControlador = new UsuarioControlador();
+         boolean flag = usuarioControlador.eliminarUsuario(Integer.parseInt(tUsuarios.getValueAt(tUsuarios.getSelectedRow(), 0).toString()));
+         if (flag) {
+            System.out.println("Borrado con exito");
+            JOptionPane.showMessageDialog(null, "Usuario borrado con exito");
+            int count = modelo.getRowCount();
+            for (int i = 0; i< count; i++) {
+                modelo.removeRow(0);
+            }
+            
+            buscarYcolocarUsuariosEnTabla();
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,7 +232,7 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearUsuario;
     private javax.swing.JButton btnEditarUsuario;
-    private javax.swing.JButton btnEliminarUsuario;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnMenu;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tUsuarios;

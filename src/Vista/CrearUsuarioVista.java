@@ -4,6 +4,12 @@
  */
 package Vista;
 
+import controlador.UsuarioControlador;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+import modelo.UsuarioDTO;
+
+
 /**
  *
  * @author estefania
@@ -55,7 +61,7 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
         txtDireccion = new javax.swing.JTextField();
         txtCargo = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JTextField();
-        btnGuardar = new javax.swing.JButton();
+        btnCrear = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -90,10 +96,10 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
 
         cbxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Empleado", "Funcionario" }));
 
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnCrear.setText("Crear");
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+                btnCrearActionPerformed(evt);
             }
         });
 
@@ -149,7 +155,7 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
                 .addContainerGap(299, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGuardar)
+                .addComponent(btnCrear)
                 .addGap(18, 18, 18)
                 .addComponent(btnRegresar)
                 .addGap(103, 103, 103))
@@ -215,7 +221,7 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
+                    .addComponent(btnCrear)
                     .addComponent(btnRegresar))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -223,10 +229,47 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        new AdministarUsuarioVista().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        
+             
+        
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaNacimientoText = txtFechaNacimiento.getText()
+        
+        UsuarioControlador usuarioControlador = new UsuarioControlador();
+        usuarioDTO.setNombres(txtNombres.getText());
+        usuarioDTO.setApellidos(txtApellidos.getText());
+        usuarioDTO.setTipoDocumento(cbxTipoDocumento.getSelectedItem().toString());
+        usuarioDTO.setFechaNacimiento(fechaNacimiento);
+        usuarioDTO.setDocumento(txtDocumento.getText());
+        usuarioDTO.setCelular(txtCelular.getText());
+        usuarioDTO.setCorreo(txtCorreo.getText());
+        usuarioDTO.setPais(txtPais.getText());
+        usuarioDTO.setCiudad(txtCiudad.getText());
+        usuarioDTO.setDireccion(txtDireccion.getText());
+        usuarioDTO.setRol(cbxRol.getSelectedItem().toString());
+        usuarioDTO.setCargo(txtCargo.getText());
+        usuarioDTO.setUsuario(txtUsuario.getText());
+        
+        try{
+            
+            boolean exito = usuarioControlador.crearUsuarioNew(usuarioDTO);
+            
+            if(exito){
+                JOptionPane.showMessageDialog(this, "Usuario creado con éxito");
+            }
+            
+            else{
+                
+                JOptionPane.showMessageDialog(this, "No se pudo crear el usuario");
+            }
+        }catch (Exception e){
+        JOptionPane.showMessageDialog(this, "Error al crear el usuario: " + e.getMessage());
+    }
+        
+    }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         new AdministarUsuarioVista().setVisible(true);
@@ -269,7 +312,7 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> cbxRol;
     private javax.swing.JComboBox<String> cbxTipoDocumento;
