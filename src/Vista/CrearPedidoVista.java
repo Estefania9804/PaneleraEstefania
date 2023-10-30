@@ -5,8 +5,13 @@
 package Vista;
 
 import controlador.PedidoControlador;
+import controlador.UsuarioControlador;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import modelo.PedidoDTO;
+import modelo.UsuarioDTO;
 
 /**
  *
@@ -20,6 +25,27 @@ public class CrearPedidoVista extends javax.swing.JFrame {
     public CrearPedidoVista() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        UsuarioControlador usuarioControlador = new UsuarioControlador();
+        ArrayList<UsuarioDTO> empleados = usuarioControlador.consultarUsuariosPorRol("Empleado");
+        DefaultComboBoxModel comboEmpleados = new DefaultComboBoxModel();
+        cmbEmpleados.setModel(comboEmpleados);
+        
+        // Setear los empleados al comboEmpleados
+        comboEmpleados.addElement(null);
+        for (UsuarioDTO empleadoDTO : empleados) {
+            comboEmpleados.addElement(empleadoDTO);
+        }
+        
+        ArrayList<UsuarioDTO> funcionarios = usuarioControlador.consultarUsuariosPorRol("Funcionario");
+        DefaultComboBoxModel comboFuncionarios = new DefaultComboBoxModel();
+        cmbFuncionarios.setModel(comboFuncionarios);
+     
+        // Setear los funcionarios al comboFuncionarios
+        comboFuncionarios.addElement(null);
+        for (UsuarioDTO funcionarioDTO : funcionarios) {
+            comboFuncionarios.addElement(funcionarioDTO);
+        }
     }
 
     /**
@@ -47,13 +73,15 @@ public class CrearPedidoVista extends javax.swing.JFrame {
         txtCiudadDestino = new javax.swing.JTextField();
         txtFechaEnvio = new javax.swing.JTextField();
         txtFechaEstimada = new javax.swing.JTextField();
-        btnSeleccionarE = new javax.swing.JButton();
-        btnSeleccionarF = new javax.swing.JButton();
         btnCrear = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
         cbxTipoEnvio = new javax.swing.JComboBox<>();
         cbxTipoPago = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        cmbEmpleados = new javax.swing.JComboBox<>();
+        cmbFuncionarios = new javax.swing.JComboBox<>();
+        lblFechaEstimada1 = new javax.swing.JLabel();
+        lblFechaEstimada2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 204, 255));
@@ -88,22 +116,6 @@ public class CrearPedidoVista extends javax.swing.JFrame {
         lblFuncionario.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblFuncionario.setText("Funcionario");
 
-        btnSeleccionarE.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnSeleccionarE.setText("Seleccionar");
-        btnSeleccionarE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarEActionPerformed(evt);
-            }
-        });
-
-        btnSeleccionarF.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnSeleccionarF.setText("Seleccionar");
-        btnSeleccionarF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarFActionPerformed(evt);
-            }
-        });
-
         btnCrear.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCrear.setText("Crear pedido");
         btnCrear.addActionListener(new java.awt.event.ActionListener() {
@@ -130,64 +142,70 @@ public class CrearPedidoVista extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("EXPORTACIONES ESTEFANIA");
 
+        lblFechaEstimada1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblFechaEstimada1.setText("(yyyy-mm-dd)");
+
+        lblFechaEstimada2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblFechaEstimada2.setText("(yyyy-mm-dd)");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(214, 214, 214)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lblCantidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblPresentacion, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(lblTipoEnvio, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCiudadOrigen, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(lblCantidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblPresentacion, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(lblTipoEnvio)
-                            .addComponent(lblCiudadOrigen))
-                        .addGap(22, 22, 22)
+                            .addComponent(lblCiudadDestino)
+                            .addComponent(lblTipoPago))
+                        .addGap(56, 56, 56)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtCiudadDestino)
+                            .addComponent(cbxTipoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(70, 70, 70))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCiudadOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblFechaEstimada)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(cbxTipoEnvio, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtPresentacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(113, 113, 113)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtFechaEnvio)
-                                    .addComponent(txtFechaEstimada)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblEmpleado)
-                                .addGap(59, 59, 59)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnSeleccionarF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnSeleccionarE, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblFechaEnvio, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblFechaEstimada, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblCiudadDestino)
-                                            .addComponent(lblTipoPago))
-                                        .addGap(33, 33, 33)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtCiudadDestino)
-                                            .addComponent(cbxTipoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(lblFuncionario, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(1, 1, 1)))
-                        .addGap(1, 1, 1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(137, 137, 137)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtFechaEnvio, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                        .addComponent(txtFechaEstimada)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblEmpleado)
+                                        .addComponent(lblFuncionario))
+                                    .addGap(73, 73, 73)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cmbEmpleados, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cmbFuncionarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(lblFechaEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFechaEstimada2)
+                            .addComponent(lblFechaEstimada1))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(91, 91, 91))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(214, 214, 214)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCiudadOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtPresentacion, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cbxTipoEnvio, javax.swing.GroupLayout.Alignment.LEADING, 0, 215, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,21 +239,23 @@ public class CrearPedidoVista extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblFechaEnvio)
-                    .addComponent(txtFechaEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFechaEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFechaEstimada2))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblFechaEstimada)
-                    .addComponent(txtFechaEstimada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFechaEstimada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFechaEstimada1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblEmpleado)
-                            .addComponent(btnSeleccionarE))
-                        .addGap(21, 21, 21)
+                            .addComponent(cmbEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblFuncionario)
-                            .addComponent(btnSeleccionarF))
-                        .addGap(18, 18, 18))
+                            .addComponent(cmbFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -253,35 +273,46 @@ public class CrearPedidoVista extends javax.swing.JFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         PedidoDTO pedidoDTO = new PedidoDTO();
-         PedidoControlador pedidoControlador = new PedidoControlador();
-         
-         pedidoDTO.setCantidad(Integer.parseInt(txtCantidad.getText()));
-         pedidoDTO.setPresentacion(txtPresentacion.getText());
-         pedidoDTO.setTipoEnvio(cbxTipoEnvio.getSelectedItem().toString());
-         pedidoDTO.setCiudadOrigen(txtCiudadOrigen.getText());
-         pedidoDTO.setCiudadDestino(txtCiudadDestino.getText());
-         pedidoDTO.setTipoPago(cbxTipoPago.getSelectedItem().toString());
-         
-          boolean exito = pedidoControlador.crearPedido(pedidoDTO);
+        
+        pedidoDTO.setCantidad(Integer.parseInt(txtCantidad.getText()));
+        pedidoDTO.setPresentacion(txtPresentacion.getText());
+        pedidoDTO.setTipoEnvio(cbxTipoEnvio.getSelectedItem().toString());
+        pedidoDTO.setCiudadOrigen(txtCiudadOrigen.getText());
+        pedidoDTO.setCiudadDestino(txtCiudadDestino.getText());
+        pedidoDTO.setTipoPago(cbxTipoPago.getSelectedItem().toString());
+        
+        // Manejo de Fechas
+        // Define el formato de la cadena
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            // Parsea la cadena y obtén un objeto Date
+            pedidoDTO.setFechaEnvio( dateFormat.parse(txtFechaEnvio.getText()));
+            pedidoDTO.setFechaEstimadaEntrega(dateFormat.parse(txtFechaEstimada.getText()));
+        } catch (Exception e) {
+            System.out.println("Hubo un error al convertir la cadena en Date: " + e.getMessage());
+        }
+        
+        // Manejo datos de los Usuarios
+        UsuarioDTO empleadoDTO = (UsuarioDTO) cmbEmpleados.getSelectedItem();
+        pedidoDTO.setEmpleadoID(empleadoDTO.getId());
+        
+        UsuarioDTO funcionarioDTO = (UsuarioDTO) cmbFuncionarios.getSelectedItem();
+        pedidoDTO.setFuncionarioID(funcionarioDTO.getId());
+        
+        PedidoControlador pedidoControlador = new PedidoControlador();
+        
+        boolean exito = pedidoControlador.crearPedido(pedidoDTO);
 
-    if (exito) {
-        // El pedido se creó con éxito
-        JOptionPane.showMessageDialog(this, "Pedido creado con éxito");
-    } else {
-        // Hubo un error al crear el pedido
-        JOptionPane.showMessageDialog(this, "No se pudo crear el pedido");
-    }
+        if (exito) {
+            // El pedido se creó con éxito
+            JOptionPane.showMessageDialog(this, "Pedido creado con éxito");
+            new ListaPedidosVista().setVisible(true);
+            this.dispose();            
+        } else {
+            // Hubo un error al crear el pedido
+            JOptionPane.showMessageDialog(this, "No se pudo crear el pedido");
+        }
     }//GEN-LAST:event_btnCrearActionPerformed
-
-    private void btnSeleccionarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarEActionPerformed
-        new AdministarUsuarioVista().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnSeleccionarEActionPerformed
-
-    private void btnSeleccionarFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarFActionPerformed
-        new AdministarUsuarioVista().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnSeleccionarFActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,10 +353,10 @@ public class CrearPedidoVista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnMenu;
-    private javax.swing.JButton btnSeleccionarE;
-    private javax.swing.JButton btnSeleccionarF;
     private javax.swing.JComboBox<String> cbxTipoEnvio;
     private javax.swing.JComboBox<String> cbxTipoPago;
+    private javax.swing.JComboBox<UsuarioDTO> cmbEmpleados;
+    private javax.swing.JComboBox<String> cmbFuncionarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblCantidad;
     private javax.swing.JLabel lblCiudadDestino;
@@ -333,6 +364,8 @@ public class CrearPedidoVista extends javax.swing.JFrame {
     private javax.swing.JLabel lblEmpleado;
     private javax.swing.JLabel lblFechaEnvio;
     private javax.swing.JLabel lblFechaEstimada;
+    private javax.swing.JLabel lblFechaEstimada1;
+    private javax.swing.JLabel lblFechaEstimada2;
     private javax.swing.JLabel lblFuncionario;
     private javax.swing.JLabel lblPresentacion;
     private javax.swing.JLabel lblTipoEnvio;

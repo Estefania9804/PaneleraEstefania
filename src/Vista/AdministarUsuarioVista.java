@@ -174,21 +174,21 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
     private void btnEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarUsuarioActionPerformed
-        if(tUsuarios.getSelectedRowCount()>0){
-        EditarUsuarioVista editarUsuarioVista;
-        try{
-            editarUsuarioVista = new EditarUsuarioVista();
-            int id=Integer.parseInt(tUsuarios.getValueAt(tUsuarios.getSelectedRow(),0).toString());
-            editarUsuarioVista.setIdUsuario(id);
-            editarUsuarioVista.setVisible(true);
-        }catch (SQLException ex){
-            Logger.getLogger(AdministarUsuarioVista.class.getName()).log(Level.SEVERE,null, ex);
-        }
-        
-        this.dispose();
-    }else{
-            JOptionPane.showMessageDialog(null,"debe seleccionar un usuario de la tabla");
+        if (tUsuarios.getSelectedRowCount() > 0) {
+            EditarUsuarioVista editarUsuarioVista;
+            try{
+                editarUsuarioVista = new EditarUsuarioVista();
+                int id = Integer.parseInt(tUsuarios.getValueAt(tUsuarios.getSelectedRow(),0).toString());
+                editarUsuarioVista.setIdUsuario(id);
+                editarUsuarioVista.setVisible(true);
+            } catch (SQLException ex){
+                Logger.getLogger(AdministarUsuarioVista.class.getName()).log(Level.SEVERE,null, ex);
             }
+
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null,"Debe seleccionar un usuario de la tabla");
+        }
     
     }//GEN-LAST:event_btnEditarUsuarioActionPerformed
 

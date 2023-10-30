@@ -39,7 +39,6 @@
                                   <Component id="lblRol" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblDireccion" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblCargo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblUsuario" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblTipoDocumento" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblApellidos" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblNombres" min="-2" max="-2" attributes="0"/>
@@ -63,13 +62,14 @@
                           <Component id="txtCiudad" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtDireccion" max="32767" attributes="0"/>
                           <Component id="txtCargo" max="32767" attributes="0"/>
-                          <Component id="txtUsuario" max="32767" attributes="0"/>
                           <Component id="cbxTipoDocumento" alignment="0" max="32767" attributes="0"/>
                           <Component id="cbxRol" alignment="0" pref="185" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblFechaNacimiento1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="299" max="32767" attributes="0"/>
+              <EmptySpace pref="223" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
@@ -110,7 +110,10 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblFechaNacimiento" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFechaNacimiento" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtFechaNacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblFechaNacimiento1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="lblCorreo" min="-2" max="-2" attributes="0"/>
@@ -147,17 +150,12 @@
                   <Component id="lblCargo" min="-2" max="-2" attributes="0"/>
                   <Component id="txtCargo" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnCrear" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnRegresar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <EmptySpace pref="26" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -223,11 +221,6 @@
         <Property name="text" type="java.lang.String" value="Cargo"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblUsuario">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Usuario"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JComboBox" name="cbxTipoDocumento">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -278,8 +271,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtCargo">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtUsuario">
-    </Component>
     <Component class="javax.swing.JButton" name="btnCrear">
       <Properties>
         <Property name="text" type="java.lang.String" value="Crear"/>
@@ -295,6 +286,11 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegresarActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblFechaNacimiento1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="yyyy-MM-dd"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

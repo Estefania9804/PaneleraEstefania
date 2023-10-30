@@ -21,7 +21,9 @@ public class PedidoDTO {
     String tipoPago;
     Date fechaEnvio;
     Date fechaEstimadaEntrega;
-    int usuarioID;
+
+    int empleadoID;
+    int funcionarioID;
 
     public int getId() {
         return id;
@@ -94,18 +96,20 @@ public class PedidoDTO {
     public void setFechaEstimadaEntrega(Date fechaEstimadaEntrega) {
         this.fechaEstimadaEntrega = fechaEstimadaEntrega;
     }
-
-    public int getUsuarioID() {
-        return usuarioID;
+    
+    public int getEmpleadoID() {
+        return empleadoID;
     }
 
-    public void setUsuarioID(int usuarioID) {
-        this.usuarioID = usuarioID;
+    public void setEmpleadoID(int empleadoID) {
+        this.empleadoID = empleadoID;
     }
-    
 
-    
-    
-   
-    
+    public int getFuncionarioID() {
+        return funcionarioID;
+    }
+
+    public void setFuncionarioID(int funcionarioID) {
+        this.funcionarioID = funcionarioID;
+    }
 }

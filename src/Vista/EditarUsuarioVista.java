@@ -7,6 +7,7 @@ package Vista;
 import controlador.UsuarioControlador;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import modelo.UsuarioDTO;
 
@@ -17,6 +18,7 @@ import modelo.UsuarioDTO;
 public class EditarUsuarioVista extends javax.swing.JFrame {
 
     private int id;
+    
     public EditarUsuarioVista() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -113,7 +115,7 @@ public class EditarUsuarioVista extends javax.swing.JFrame {
 
         lblRol.setText("Rol");
 
-        cbxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Fucionario", "Empleado" }));
+        cbxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Funcionario", "Empleado" }));
 
         jLabel5.setText("Tipo documento");
 
@@ -255,36 +257,40 @@ public class EditarUsuarioVista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setIdUsuario(int idU) throws SQLException
-    {
-        this.id=idU;
+    public void setIdUsuario(int idU) throws SQLException {
+        this.id = idU;
         mapearUsuario();
-           }
+    }
     
-    private void mapearUsuario()throws SQLException{
-        
-        UsuarioDTO usuarioDTO = new UsuarioDTO();
+    /**
+     * Metodo para colocar la informacion en el formulario de edicion del usuario.
+     * @throws SQLException 
+     */
+    private void mapearUsuario()throws SQLException{        
         UsuarioControlador usuarioControlador = new UsuarioControlador();
-        usuarioDTO = usuarioControlador.consultarUsuarioId(this.id);
+        
+        UsuarioDTO usuarioDTO = usuarioControlador.consultarUsuarioId(this.id);
         txtNombres.setText(usuarioDTO.getNombres());
         txtApellidos.setText(usuarioDTO.getApellidos());
         cbxTipoDocumento.setSelectedItem(usuarioDTO.getTipoDocumento());
         txtDocumento.setText(usuarioDTO.getDocumento());
-        txtCelular.setText(usuarioDTO.getCelular());
+        
+        // Manejo de Fechas
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");        
+        txtFechaNacimiento.setText(dateFormat.format(usuarioDTO.getFechaNacimiento()));
+        
         txtCorreo.setText(usuarioDTO.getCorreo());
-        txtPais.setToolTipText(usuarioDTO.getPais());
+        txtCelular.setText(usuarioDTO.getCelular());
+        txtPais.setText(usuarioDTO.getPais());
         txtCiudad.setText(usuarioDTO.getCiudad());
         txtDireccion.setText(usuarioDTO.getDireccion());
         cbxRol.setSelectedItem(usuarioDTO.getRol());
         txtCargo.setText(usuarioDTO.getCargo());
-        
-        
     }
+    
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         
         UsuarioDTO usuarioDTO = new UsuarioDTO();
-        UsuarioControlador usuarioControlador = new UsuarioControlador();
-    
    
         usuarioDTO.setId(this.id);
         usuarioDTO.setNombres(txtNombres.getText());
@@ -292,36 +298,42 @@ public class EditarUsuarioVista extends javax.swing.JFrame {
         usuarioDTO.setTipoDocumento(cbxTipoDocumento.getSelectedItem().toString());
         usuarioDTO.setDocumento(txtDocumento.getText());
     
-         Date fechaNacimiento = obtenerFechaNacimiento(); 
+        // Manejo de fecha
+        if (txtFechaNacimiento.getText() == null) {
+            JOptionPane.showMessageDialog(this, "La fecha de nacimiento es inválida");
+            return;
+        } 
+                
+        // Define el formato de la cadena
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            // Parsea la cadena y obtén un objeto Date
+            usuarioDTO.setFechaNacimiento(dateFormat.parse(txtFechaNacimiento.getText()));
+        } catch (Exception e) {
+            System.out.println("Hubo un error al convertir la cadena en Date: " + e.getMessage());
+        }
+
     
-    if (fechaNacimiento != null) {
-        usuarioDTO.setFechaNacimiento(fechaNacimiento);
-    } else {
-        
-        JOptionPane.showMessageDialog(this, "La fecha de nacimiento es inválida");
-        return;
-    }
-    
-        usuarioDTO.setCelular(txtCelular.getText());
         usuarioDTO.setCorreo(txtCorreo.getText());
+        usuarioDTO.setCelular(txtCelular.getText());
         usuarioDTO.setPais(txtPais.getText());
         usuarioDTO.setCiudad(txtCiudad.getText());
         usuarioDTO.setDireccion(txtDireccion.getText());
         usuarioDTO.setRol(cbxRol.getSelectedItem().toString());
         usuarioDTO.setCargo(txtCargo.getText());
+        
+        UsuarioControlador usuarioControlador = new UsuarioControlador();
     
-    // Editar el usuario
-    boolean flag = usuarioControlador.editarUsuario(usuarioDTO);
-    
-    if (flag) {
-        JOptionPane.showMessageDialog(this, "Usuario actualizado con éxito");
-        new AdministarUsuarioVista().setVisible(true);
-        this.dispose();
-    } else {
-        JOptionPane.showMessageDialog(this, "No se pudo actualizar el usuario");
-    }        
-      
-       
+        // Editar el usuario
+        boolean flag = usuarioControlador.editarUsuario(usuarioDTO);
+
+        if (flag) {
+            JOptionPane.showMessageDialog(this, "Usuario actualizado con éxito");
+            new AdministarUsuarioVista().setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo actualizar el usuario");
+        }        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -398,7 +410,4 @@ public class EditarUsuarioVista extends javax.swing.JFrame {
     private javax.swing.JTextField txtPais;
     // End of variables declaration//GEN-END:variables
 
-    private Date obtenerFechaNacimiento() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

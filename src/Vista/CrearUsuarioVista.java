@@ -51,7 +51,6 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
         lblDireccion = new javax.swing.JLabel();
         lblRol = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
-        lblUsuario = new javax.swing.JLabel();
         cbxTipoDocumento = new javax.swing.JComboBox<>();
         cbxRol = new javax.swing.JComboBox<>();
         txtNombres = new javax.swing.JTextField();
@@ -64,9 +63,9 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
         txtCiudad = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
         txtCargo = new javax.swing.JTextField();
-        txtUsuario = new javax.swing.JTextField();
         btnCrear = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
+        lblFechaNacimiento1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,8 +93,6 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
 
         lblCargo.setText("Cargo");
 
-        lblUsuario.setText("Usuario");
-
         cbxTipoDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "CC", "CE", "DNI", "PA" }));
 
         cbxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Empleado", "Funcionario" }));
@@ -113,6 +110,8 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
                 btnRegresarActionPerformed(evt);
             }
         });
+
+        lblFechaNacimiento1.setText("yyyy-MM-dd");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,7 +132,6 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
                                     .addComponent(lblRol)
                                     .addComponent(lblDireccion)
                                     .addComponent(lblCargo)
-                                    .addComponent(lblUsuario)
                                     .addComponent(lblTipoDocumento)
                                     .addComponent(lblApellidos)
                                     .addComponent(lblNombres))
@@ -153,10 +151,11 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
                             .addComponent(txtCiudad)
                             .addComponent(txtDireccion)
                             .addComponent(txtCargo)
-                            .addComponent(txtUsuario)
                             .addComponent(cbxTipoDocumento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbxRol, 0, 185, Short.MAX_VALUE))))
-                .addContainerGap(299, Short.MAX_VALUE))
+                            .addComponent(cbxRol, 0, 185, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblFechaNacimiento1)))
+                .addContainerGap(223, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCrear)
@@ -191,7 +190,9 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblFechaNacimiento)
-                            .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblFechaNacimiento1)))
                         .addGap(18, 18, 18)
                         .addComponent(lblCorreo)
                         .addGap(6, 6, 6)))
@@ -219,69 +220,63 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCargo)
                     .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUsuario)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCrear)
                     .addComponent(btnRegresar))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+    
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+    
+        usuarioDTO.setNombres(txtNombres.getText());
+        usuarioDTO.setApellidos(txtApellidos.getText());
+        usuarioDTO.setTipoDocumento(cbxTipoDocumento.getSelectedItem().toString());
+        usuarioDTO.setDocumento(txtDocumento.getText());
         
-             
-        
-         UsuarioDTO usuarioDTO = new UsuarioDTO();
-         UsuarioControlador usuarioControlador = new UsuarioControlador();
-    
-    // Verifica si el campo de fecha de nacimiento no está vacío
-    if (txtFechaNacimiento.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Debe ingresar una fecha de nacimiento válida.");
-        return;
-    }
-    
-    SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-    Date fechaNacimiento = null;
-    try {
-        fechaNacimiento = (Date) formatoFecha.parse(txtFechaNacimiento.getText());
-    } catch (ParseException ex) {
-        Logger.getLogger(CrearUsuarioVista.class.getName()).log(Level.SEVERE, null, ex);
-        JOptionPane.showMessageDialog(this, "La fecha de nacimiento ingresada no es válida.");
-        return;
-    }
-    
-    usuarioDTO.setNombres(txtNombres.getText());
-    usuarioDTO.setApellidos(txtApellidos.getText());
-    usuarioDTO.setTipoDocumento(cbxTipoDocumento.getSelectedItem().toString());
-    usuarioDTO.setDocumento(txtDocumento.getText());
-    usuarioDTO.setFechaNacimiento(fechaNacimiento);
-    usuarioDTO.setCelular(txtCelular.getText());
-    usuarioDTO.setCorreo(txtCorreo.getText());
-    usuarioDTO.setPais(txtPais.getText());
-    usuarioDTO.setCiudad(txtCiudad.getText());
-    usuarioDTO.setDireccion(txtDireccion.getText());
-    usuarioDTO.setRol(cbxRol.getSelectedItem().toString());
-    usuarioDTO.setCargo(txtCargo.getText());
-
-    try {
-        boolean flag = usuarioControlador.crearUsuarioNew(usuarioDTO);
-
-        if (flag) {
-            JOptionPane.showMessageDialog(this, "Usuario creado con éxito");
-            new AdministarUsuarioVista().setVisible(true);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "No se pudo crear el usuario");
+        // Manejo de Fecha.
+        // Verifica si el campo de fecha de nacimiento no está vacío
+        if (txtFechaNacimiento.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar una fecha de nacimiento válida.");
+            return;
         }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error al crear el usuario: " + e.getMessage());
-    }
+
+        // Define el formato de la cadena
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            // Parsea la cadena y obtén un objeto Date
+            usuarioDTO.setFechaNacimiento(dateFormat.parse(txtFechaNacimiento.getText()));
+        } catch (Exception e) {
+            System.out.println("Hubo un error al convertir la cadena en Date: " + e.getMessage());
+        }
+        
+        usuarioDTO.setCorreo(txtCorreo.getText());
+        usuarioDTO.setCelular(txtCelular.getText());
+        usuarioDTO.setPais(txtPais.getText());
+        usuarioDTO.setCiudad(txtCiudad.getText());
+        usuarioDTO.setDireccion(txtDireccion.getText());
+        usuarioDTO.setRol(cbxRol.getSelectedItem().toString());
+        usuarioDTO.setCargo(txtCargo.getText());
+
+        UsuarioControlador usuarioControlador = new UsuarioControlador();
+        try {
+            boolean flag = usuarioControlador.crearUsuarioNew(usuarioDTO);
+
+            if (flag) {
+                JOptionPane.showMessageDialog(this, "Usuario creado con éxito");
+                new AdministarUsuarioVista().setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo crear el usuario");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al crear el usuario: " + e.getMessage());
+        }
         
     }//GEN-LAST:event_btnCrearActionPerformed
 
@@ -338,11 +333,11 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblDocumento;
     private javax.swing.JLabel lblFechaNacimiento;
+    private javax.swing.JLabel lblFechaNacimiento1;
     private javax.swing.JLabel lblNombres;
     private javax.swing.JLabel lblPais;
     private javax.swing.JLabel lblRol;
     private javax.swing.JLabel lblTipoDocumento;
-    private javax.swing.JLabel lblUsuario;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtCelular;
@@ -353,6 +348,5 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
     private javax.swing.JTextField txtFechaNacimiento;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtPais;
-    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

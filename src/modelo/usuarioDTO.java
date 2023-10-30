@@ -4,7 +4,7 @@
  */
 package modelo;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
@@ -148,8 +148,8 @@ public class UsuarioDTO {
         this.contraseña = contraseña;
     }
 
-    
-    
-    
-    
+    @Override
+    public String toString() {
+        return nombres + " " + apellidos; // Devuelve el nombre del usuario.
+    }
 }

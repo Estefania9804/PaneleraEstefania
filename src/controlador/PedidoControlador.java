@@ -34,7 +34,7 @@ public class PedidoControlador {
 
     
         int res = conn.ejecutarSentanciasql("INSERT INTO panelera.pedidos (cantidad, presentacion, tipoEnvio, ciudadOrigen, "
-                + "ciudadDestino, tipoPago, fechaEnvio, fechaEstimadaEntrega, usuarioID) VALUES "
+                + "ciudadDestino, tipoPago, fechaEnvio, fechaEstimadaEntrega, empleadoID, funcionarioID) VALUES "
                 + "(" +  pedidoDTO.getCantidad() 
                 + ", '" + pedidoDTO.getPresentacion() 
                 + "', '" + pedidoDTO.getTipoEnvio() 
@@ -43,7 +43,8 @@ public class PedidoControlador {
                 + "', '" + pedidoDTO.getTipoPago()
                 + "', '" + fechaEnvioStr
                 + "', '" + fechaEstimadaEntregaStr
-                + "', " + pedidoDTO.getUsuarioID()
+                + "', " + pedidoDTO.getEmpleadoID()
+                + ", " + pedidoDTO.getFuncionarioID()
                 + ");");
         if (res == 1) {
             System.out.println("Actualizado con exito");
@@ -94,7 +95,8 @@ public class PedidoControlador {
                 + "', tipoPago = '" + pedidoDTO.getTipoPago()
                 + "', fechaEnvio = '" + fechaEnvioStr
                 + "', fechaEstimadaEntrega = '" + fechaEstimadaEntregaStr
-                + "', usuarioID = " + pedidoDTO.getUsuarioID()                
+                + "', empleadoID = " + pedidoDTO.getEmpleadoID()
+                + "', funcionarioID = " + pedidoDTO.getFuncionarioID()
                 + " WHERE id = " + pedidoDTO.getId() + ";");
         if (res == 1) {
             System.out.println("Actualizado con exito");
@@ -121,7 +123,8 @@ public class PedidoControlador {
                 pedidoDTO.setTipoPago(resul.getString ("tipoPago"));
                 pedidoDTO.setFechaEnvio(resul.getDate("fechaEnvio"));
                 pedidoDTO.setFechaEstimadaEntrega(resul.getDate("fechaEstimadaEntrega"));
-                pedidoDTO.setUsuarioID(resul.getInt ("usuarioID"));
+                pedidoDTO.setEmpleadoID(resul.getInt ("empleadoID"));
+                pedidoDTO.setFuncionarioID(resul.getInt ("funcionarioID"));
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -152,7 +155,8 @@ public class PedidoControlador {
                 pedidoDTO.setTipoPago(resul.getString ("tipoPago"));
                 pedidoDTO.setFechaEnvio(resul.getDate("fechaEnvio"));
                 pedidoDTO.setFechaEstimadaEntrega(resul.getDate("fechaEstimadaEntrega"));
-                pedidoDTO.setUsuarioID(resul.getInt ("usuarioID"));             
+                pedidoDTO.setEmpleadoID(resul.getInt ("empleadoID"));      
+                pedidoDTO.setFuncionarioID(resul.getInt ("funcionarioID"));   
 
                 pedidos.add(pedidoDTO);              
             } 
