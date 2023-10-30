@@ -4,15 +4,15 @@
  */
 package Vista;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author estefania
  */
 public class EditarPedidoVista extends javax.swing.JFrame {
 
-    /**
-     * Creates new form EditarPedidoVista
-     */
+    private int id;
     public EditarPedidoVista() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -47,7 +47,7 @@ public class EditarPedidoVista extends javax.swing.JFrame {
         btnSeleccionarF = new javax.swing.JButton();
         cbxTipoEnvio = new javax.swing.JComboBox<>();
         cbxTipoPago = new javax.swing.JComboBox<>();
-        btnGuardar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -90,10 +90,10 @@ public class EditarPedidoVista extends javax.swing.JFrame {
 
         cbxTipoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Dólares", "Euro", "Peso colombiano" }));
 
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -136,7 +136,7 @@ public class EditarPedidoVista extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRegresar)
-                    .addComponent(btnGuardar))
+                    .addComponent(btnEditar))
                 .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(
@@ -187,7 +187,7 @@ public class EditarPedidoVista extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardar)
+                        .addComponent(btnEditar)
                         .addGap(18, 18, 18)
                         .addComponent(btnRegresar)
                         .addGap(15, 15, 15))))
@@ -195,11 +195,19 @@ public class EditarPedidoVista extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+public void setIdPedido(int idP) throws SQLException
+    {
+        this.id=idP;
+        mapearPedido();
+           }
+ private void mapearPedido()throws SQLException{
+     
+ }
+         
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         new ListaPedidosVista().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         new ListaPedidosVista().setVisible(true);
@@ -252,7 +260,7 @@ public class EditarPedidoVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSeleccionarE;
     private javax.swing.JButton btnSeleccionarF;

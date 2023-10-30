@@ -5,7 +5,11 @@
 package Vista;
 
 import controlador.UsuarioControlador;
+import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.UsuarioDTO;
 
@@ -233,39 +237,49 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
         
              
         
-        UsuarioDTO usuarioDTO = new UsuarioDTO();
-        
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        String fechaNacimientoText = txtFechaNacimiento.getText()
-        
-        UsuarioControlador usuarioControlador = new UsuarioControlador();
-        usuarioDTO.setNombres(txtNombres.getText());
-        usuarioDTO.setApellidos(txtApellidos.getText());
-        usuarioDTO.setTipoDocumento(cbxTipoDocumento.getSelectedItem().toString());
-        usuarioDTO.setFechaNacimiento(fechaNacimiento);
-        usuarioDTO.setDocumento(txtDocumento.getText());
-        usuarioDTO.setCelular(txtCelular.getText());
-        usuarioDTO.setCorreo(txtCorreo.getText());
-        usuarioDTO.setPais(txtPais.getText());
-        usuarioDTO.setCiudad(txtCiudad.getText());
-        usuarioDTO.setDireccion(txtDireccion.getText());
-        usuarioDTO.setRol(cbxRol.getSelectedItem().toString());
-        usuarioDTO.setCargo(txtCargo.getText());
-        usuarioDTO.setUsuario(txtUsuario.getText());
-        
-        try{
-            
-            boolean exito = usuarioControlador.crearUsuarioNew(usuarioDTO);
-            
-            if(exito){
-                JOptionPane.showMessageDialog(this, "Usuario creado con éxito");
-            }
-            
-            else{
-                
-                JOptionPane.showMessageDialog(this, "No se pudo crear el usuario");
-            }
-        }catch (Exception e){
+         UsuarioDTO usuarioDTO = new UsuarioDTO();
+         UsuarioControlador usuarioControlador = new UsuarioControlador();
+    
+    // Verifica si el campo de fecha de nacimiento no está vacío
+    if (txtFechaNacimiento.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Debe ingresar una fecha de nacimiento válida.");
+        return;
+    }
+    
+    SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+    Date fechaNacimiento = null;
+    try {
+        fechaNacimiento = (Date) formatoFecha.parse(txtFechaNacimiento.getText());
+    } catch (ParseException ex) {
+        Logger.getLogger(CrearUsuarioVista.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(this, "La fecha de nacimiento ingresada no es válida.");
+        return;
+    }
+    
+    usuarioDTO.setNombres(txtNombres.getText());
+    usuarioDTO.setApellidos(txtApellidos.getText());
+    usuarioDTO.setTipoDocumento(cbxTipoDocumento.getSelectedItem().toString());
+    usuarioDTO.setDocumento(txtDocumento.getText());
+    usuarioDTO.setFechaNacimiento(fechaNacimiento);
+    usuarioDTO.setCelular(txtCelular.getText());
+    usuarioDTO.setCorreo(txtCorreo.getText());
+    usuarioDTO.setPais(txtPais.getText());
+    usuarioDTO.setCiudad(txtCiudad.getText());
+    usuarioDTO.setDireccion(txtDireccion.getText());
+    usuarioDTO.setRol(cbxRol.getSelectedItem().toString());
+    usuarioDTO.setCargo(txtCargo.getText());
+
+    try {
+        boolean flag = usuarioControlador.crearUsuarioNew(usuarioDTO);
+
+        if (flag) {
+            JOptionPane.showMessageDialog(this, "Usuario creado con éxito");
+            new AdministarUsuarioVista().setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo crear el usuario");
+        }
+    } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Error al crear el usuario: " + e.getMessage());
     }
         

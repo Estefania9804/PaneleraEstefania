@@ -160,8 +160,10 @@ public class ListaPedidosVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnCrearPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPedidoActionPerformed
-        new CreacionPedidoVista().setVisible(true);
+        CrearPedidoVista crearPedidoVista = new CrearPedidoVista();
+        crearPedidoVista.setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_btnCrearPedidoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed

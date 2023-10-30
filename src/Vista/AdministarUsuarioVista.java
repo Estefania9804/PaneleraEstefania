@@ -5,7 +5,10 @@
 package Vista;
 
 import controlador.UsuarioControlador;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.UsuarioDTO;
@@ -162,16 +165,31 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
         CrearUsuarioVista crearUsuarioVista = new CrearUsuarioVista();
-        new CrearUsuarioVista().setVisible(true);
+        crearUsuarioVista.setVisible(true);
         this.dispose();
         
     }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
     private void btnEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarUsuarioActionPerformed
-        new EditarUsuarioVista().setVisible(true);
+        if(tUsuarios.getSelectedRowCount()>0){
+        EditarUsuarioVista editarUsuarioVista;
+        try{
+            editarUsuarioVista = new EditarUsuarioVista();
+            int id=Integer.parseInt(tUsuarios.getValueAt(tUsuarios.getSelectedRow(),0).toString());
+            editarUsuarioVista.setIdUsuario(id);
+            editarUsuarioVista.setVisible(true);
+        }catch (SQLException ex){
+            Logger.getLogger(AdministarUsuarioVista.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        
         this.dispose();
+    }else{
+            JOptionPane.showMessageDialog(null,"debe seleccionar un usuario de la tabla");
+            }
+    
     }//GEN-LAST:event_btnEditarUsuarioActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed

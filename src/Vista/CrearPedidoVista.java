@@ -4,16 +4,20 @@
  */
 package Vista;
 
+import controlador.PedidoControlador;
+import javax.swing.JOptionPane;
+import modelo.PedidoDTO;
+
 /**
  *
  * @author ESTEFANIAHURTADOOSPI
  */
-public class CreacionPedidoVista extends javax.swing.JFrame {
+public class CrearPedidoVista extends javax.swing.JFrame {
 
     /**
      * Creates new form CreacionPedidoVista
      */
-    public CreacionPedidoVista() {
+    public CrearPedidoVista() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -45,7 +49,7 @@ public class CreacionPedidoVista extends javax.swing.JFrame {
         txtFechaEstimada = new javax.swing.JTextField();
         btnSeleccionarE = new javax.swing.JButton();
         btnSeleccionarF = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
+        btnCrear = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
         cbxTipoEnvio = new javax.swing.JComboBox<>();
         cbxTipoPago = new javax.swing.JComboBox<>();
@@ -100,11 +104,11 @@ public class CreacionPedidoVista extends javax.swing.JFrame {
             }
         });
 
-        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnGuardar.setText("Guardar pedido");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnCrear.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCrear.setText("Crear pedido");
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+                btnCrearActionPerformed(evt);
             }
         });
 
@@ -181,7 +185,7 @@ public class CreacionPedidoVista extends javax.swing.JFrame {
                         .addGap(1, 1, 1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(91, 91, 91))
         );
@@ -233,7 +237,7 @@ public class CreacionPedidoVista extends javax.swing.JFrame {
                             .addComponent(btnSeleccionarF))
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26))))
@@ -247,10 +251,27 @@ public class CreacionPedidoVista extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnMenuActionPerformed
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        new PrincipalVista().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        PedidoDTO pedidoDTO = new PedidoDTO();
+         PedidoControlador pedidoControlador = new PedidoControlador();
+         
+         pedidoDTO.setCantidad(Integer.parseInt(txtCantidad.getText()));
+         pedidoDTO.setPresentacion(txtPresentacion.getText());
+         pedidoDTO.setTipoEnvio(cbxTipoEnvio.getSelectedItem().toString());
+         pedidoDTO.setCiudadOrigen(txtCiudadOrigen.getText());
+         pedidoDTO.setCiudadDestino(txtCiudadDestino.getText());
+         pedidoDTO.setTipoPago(cbxTipoPago.getSelectedItem().toString());
+         
+          boolean exito = pedidoControlador.crearPedido(pedidoDTO);
+
+    if (exito) {
+        // El pedido se creó con éxito
+        JOptionPane.showMessageDialog(this, "Pedido creado con éxito");
+    } else {
+        // Hubo un error al crear el pedido
+        JOptionPane.showMessageDialog(this, "No se pudo crear el pedido");
+    }
+    }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnSeleccionarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarEActionPerformed
         new AdministarUsuarioVista().setVisible(true);
@@ -279,26 +300,27 @@ public class CreacionPedidoVista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreacionPedidoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrearPedidoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreacionPedidoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrearPedidoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreacionPedidoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrearPedidoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreacionPedidoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrearPedidoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreacionPedidoVista().setVisible(true);
+                new CrearPedidoVista().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnSeleccionarE;
     private javax.swing.JButton btnSeleccionarF;
