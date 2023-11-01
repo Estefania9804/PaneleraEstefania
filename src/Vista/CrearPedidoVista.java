@@ -142,6 +142,12 @@ public class CrearPedidoVista extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("EXPORTACIONES ESTEFANIA");
 
+        cmbEmpleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEmpleadosActionPerformed(evt);
+            }
+        });
+
         lblFechaEstimada1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblFechaEstimada1.setText("(yyyy-mm-dd)");
 
@@ -313,6 +319,10 @@ public class CrearPedidoVista extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se pudo crear el pedido");
         }
     }//GEN-LAST:event_btnCrearActionPerformed
+
+    private void cmbEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEmpleadosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbEmpleadosActionPerformed
 
     /**
      * @param args the command line arguments

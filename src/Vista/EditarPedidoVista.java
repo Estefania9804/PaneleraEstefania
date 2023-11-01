@@ -4,7 +4,11 @@
  */
 package Vista;
 
+import controlador.PedidoControlador;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import modelo.PedidoDTO;
+import modelo.UsuarioDTO;
 
 /**
  *
@@ -43,12 +47,12 @@ public class EditarPedidoVista extends javax.swing.JFrame {
         txtCiudadDestino = new javax.swing.JTextField();
         txtFechaEnvio = new javax.swing.JTextField();
         txtFechaEstimada = new javax.swing.JTextField();
-        btnSeleccionarE = new javax.swing.JButton();
-        btnSeleccionarF = new javax.swing.JButton();
         cbxTipoEnvio = new javax.swing.JComboBox<>();
         cbxTipoPago = new javax.swing.JComboBox<>();
         btnEditar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
+        cmbEmpleados = new javax.swing.JComboBox<>();
+        cmbFuncionarios = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,20 +75,6 @@ public class EditarPedidoVista extends javax.swing.JFrame {
         lblEmpleado.setText("Empleado");
 
         lblFuncioario.setText("Funcionario");
-
-        btnSeleccionarE.setText("Seleccionar");
-        btnSeleccionarE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarEActionPerformed(evt);
-            }
-        });
-
-        btnSeleccionarF.setText("Seleccionar");
-        btnSeleccionarF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarFActionPerformed(evt);
-            }
-        });
 
         cbxTipoEnvio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Maritimo", "Terrestre", "Aéreo" }));
 
@@ -129,10 +119,10 @@ public class EditarPedidoVista extends javax.swing.JFrame {
                     .addComponent(txtCiudadDestino)
                     .addComponent(txtFechaEnvio)
                     .addComponent(txtFechaEstimada)
-                    .addComponent(btnSeleccionarE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSeleccionarF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cbxTipoEnvio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbxTipoPago, 0, 190, Short.MAX_VALUE))
+                    .addComponent(cbxTipoPago, 0, 190, Short.MAX_VALUE)
+                    .addComponent(cmbEmpleados, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbFuncionarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRegresar)
@@ -175,22 +165,25 @@ public class EditarPedidoVista extends javax.swing.JFrame {
                     .addComponent(lblFechaEstimada)
                     .addComponent(txtFechaEstimada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEmpleado)
-                    .addComponent(btnSeleccionarE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblFuncioario)
-                            .addComponent(btnSeleccionarF))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEditar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnRegresar)
-                        .addGap(15, 15, 15))))
+                        .addComponent(lblEmpleado)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(lblFuncioario)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                                .addComponent(btnEditar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnRegresar)
+                                .addGap(15, 15, 15))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cmbEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pack();
@@ -201,28 +194,40 @@ public void setIdPedido(int idP) throws SQLException
         mapearPedido();
            }
  private void mapearPedido()throws SQLException{
-     
- }
+        PedidoControlador pedidoControlador = new PedidoControlador();
+
+        PedidoDTO pedidoDTO = pedidoControlador.consultarPedidoId(this.id);
+
+        txtPresentacion.setText(pedidoDTO.getPresentacion());
+        cbxTipoEnvio.setSelectedItem(pedidoDTO.getTipoEnvio());
+        txtCiudadOrigen.setText(pedidoDTO.getCiudadOrigen());
+        txtCiudadDestino.setText(pedidoDTO.getCiudadDestino());
+        cbxTipoPago.setSelectedItem(pedidoDTO.getTipoPago());
+
+        // Manejo de Fechas
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        txtFechaEnvio.setText(dateFormat.format(pedidoDTO.getFechaEnvio()));
+        txtFechaEstimada.setText(dateFormat.format(pedidoDTO.getFechaEstimadaEntrega()));
+
+        // Manejo datos de los Usuarios
+        UsuarioDTO empleadoDTO = (UsuarioDTO) cmbEmpleados.getSelectedItem();
+        cmbEmpleados.getSelectedItem();
+
+        UsuarioDTO funcionarioDTO = (UsuarioDTO) cmbFuncionarios.getSelectedItem();
+        cmbFuncionarios.getSelectedItem();
+
+    }
          
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        new ListaPedidosVista().setVisible(true);
-        this.dispose();
+        PedidoDTO pedidoDTO = new PedidoDTO();
+        
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         new ListaPedidosVista().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
-
-    private void btnSeleccionarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarEActionPerformed
-        new AdministarUsuarioVista().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnSeleccionarEActionPerformed
-
-    private void btnSeleccionarFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarFActionPerformed
-        new AdministarUsuarioVista().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnSeleccionarFActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,10 +267,10 @@ public void setIdPedido(int idP) throws SQLException
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton btnSeleccionarE;
-    private javax.swing.JButton btnSeleccionarF;
     private javax.swing.JComboBox<String> cbxTipoEnvio;
     private javax.swing.JComboBox<String> cbxTipoPago;
+    private javax.swing.JComboBox<String> cmbEmpleados;
+    private javax.swing.JComboBox<String> cmbFuncionarios;
     private javax.swing.JLabel lblCantidad;
     private javax.swing.JLabel lblCiudadDestino;
     private javax.swing.JLabel lblCiudadOrigen;
