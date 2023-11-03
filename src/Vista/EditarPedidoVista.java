@@ -7,6 +7,7 @@ package Vista;
 import controlador.PedidoControlador;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 import modelo.PedidoDTO;
 import modelo.UsuarioDTO;
 
@@ -197,7 +198,9 @@ public void setIdPedido(int idP) throws SQLException
         PedidoControlador pedidoControlador = new PedidoControlador();
 
         PedidoDTO pedidoDTO = pedidoControlador.consultarPedidoId(this.id);
-
+        
+                
+        String cantidadTexto = txtCantidad.getText();
         txtPresentacion.setText(pedidoDTO.getPresentacion());
         cbxTipoEnvio.setSelectedItem(pedidoDTO.getTipoEnvio());
         txtCiudadOrigen.setText(pedidoDTO.getCiudadOrigen());
@@ -209,17 +212,54 @@ public void setIdPedido(int idP) throws SQLException
         txtFechaEnvio.setText(dateFormat.format(pedidoDTO.getFechaEnvio()));
         txtFechaEstimada.setText(dateFormat.format(pedidoDTO.getFechaEstimadaEntrega()));
 
-        // Manejo datos de los Usuarios
-        UsuarioDTO empleadoDTO = (UsuarioDTO) cmbEmpleados.getSelectedItem();
-        cmbEmpleados.getSelectedItem();
-
-        UsuarioDTO funcionarioDTO = (UsuarioDTO) cmbFuncionarios.getSelectedItem();
-        cmbFuncionarios.getSelectedItem();
+              
+        cmbEmpleados.setSelectedItem(pedidoDTO.getEmpleadoID());
+        cmbFuncionarios.setSelectedItem(pedidoDTO.getFuncionarioID());
 
     }
          
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         PedidoDTO pedidoDTO = new PedidoDTO();
+        
+        pedidoDTO.setId(this.id);
+        pedidoDTO.setCantidad(Integer.parseInt(txtCantidad.getText()));
+        pedidoDTO.setPresentacion(txtPresentacion.getText());
+        pedidoDTO.setTipoEnvio(cbxTipoEnvio.getSelectedItem().toString());
+        pedidoDTO.setCiudadOrigen(txtCiudadOrigen.getText());
+        pedidoDTO.setCiudadDestino(txtCiudadDestino.getText());
+        pedidoDTO.setTipoPago(cbxTipoPago.getSelectedItem().toString());
+        
+        // Manejo de Fechas
+        // Define el formato de la cadena
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            // Parsea la cadena y obtén un objeto Date
+            pedidoDTO.setFechaEnvio( dateFormat.parse(txtFechaEnvio.getText()));
+            pedidoDTO.setFechaEstimadaEntrega(dateFormat.parse(txtFechaEstimada.getText()));
+        } catch (Exception e) {
+            System.out.println("Hubo un error al convertir la cadena en Date: " + e.getMessage());
+        }
+        
+        // Manejo datos de los Usuarios
+        UsuarioDTO empleadoDTO = (UsuarioDTO) cmbEmpleados.getSelectedItem();
+        pedidoDTO.setEmpleadoID(empleadoDTO.getId());
+        
+        UsuarioDTO funcionarioDTO = (UsuarioDTO) cmbFuncionarios.getSelectedItem();
+        pedidoDTO.setFuncionarioID(funcionarioDTO.getId());
+        
+        PedidoControlador pedidoControlador = new PedidoControlador();
+        
+        boolean exito = pedidoControlador.crearPedido(pedidoDTO);
+
+        if (exito) {
+            // El pedido se creó con éxito
+            JOptionPane.showMessageDialog(this, "Pedido actualizado con éxito");
+            new ListaPedidosVista().setVisible(true);
+            this.dispose();            
+        } else {
+            // Hubo un error al crear el pedido
+            JOptionPane.showMessageDialog(this, "No se pudo actualizar el pedido");
+        }
         
         
     }//GEN-LAST:event_btnEditarActionPerformed

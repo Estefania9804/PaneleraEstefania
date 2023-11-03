@@ -108,8 +108,8 @@ public class IniciarSesionVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        new PrincipalVista().setVisible(true);
-        this.dispose();
+        UsuarioControlador usuarioControlador = new UsuarioControlador();
+        
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed

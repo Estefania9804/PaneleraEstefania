@@ -5,7 +5,10 @@
 package Vista;
 
 import controlador.PedidoControlador;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.PedidoDTO;
@@ -27,7 +30,7 @@ public class ListaPedidosVista extends javax.swing.JFrame {
         
         // Se colocan los nombres de la columnas que va a tener la tabla que se muestra al usuario en la pagina de Ver Pedidos.
         String[] titulos_tabla = {
-            "ID", "Cantidad", "Presentación", "Tipo de Envío", "Ciudad Origen", "Ciudad Destino", "Tipo de Pago", "Fecha de Envío", "Fecha Estimada de Entrega"};
+            "ID", "Cantidad", "Presentación", "Tipo de Envío", "Ciudad Origen", "Ciudad Destino", "Tipo de Pago", "Fecha de Envío", "Fecha Estimada de Entrega","Empleado","Funcionario"};
         modelo = new DefaultTableModel(null, titulos_tabla);
         tPedidos.setModel(modelo);
         
@@ -111,10 +114,6 @@ public class ListaPedidosVista extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(205, 205, 205)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnEditar)
@@ -126,18 +125,23 @@ public class ListaPedidosVista extends javax.swing.JFrame {
                 .addComponent(btnMenu)
                 .addGap(30, 30, 30))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(205, 205, 205)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
                     .addComponent(btnEliminar)
@@ -155,8 +159,21 @@ public class ListaPedidosVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        new EditarPedidoVista().setVisible(true);
-        this.dispose();
+         if (tPedidos.getSelectedRowCount() > 0) {
+            EditarPedidoVista editarPedidoVista;
+            try{
+                editarPedidoVista = new EditarPedidoVista();
+                int id = Integer.parseInt(tPedidos.getValueAt(tPedidos.getSelectedRow(),0).toString());
+                editarPedidoVista.setIdPedido(id);
+                editarPedidoVista.setVisible(true);
+            } catch (SQLException ex){
+                Logger.getLogger(ListaPedidosVista.class.getName()).log(Level.SEVERE,null, ex);
+            }
+
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null,"Debe seleccionar un pedido de la tabla");
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnCrearPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPedidoActionPerformed

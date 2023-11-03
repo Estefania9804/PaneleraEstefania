@@ -14,10 +14,33 @@ import modelo.UsuarioDTO;
 /**
  *
  * @author estefania
+ * 
+ * 
  */
-public class UsuarioControlador {
+public class UsuarioControlador {  
     
-     
+    public boolean validarUsuario(String usuario, String contraseña){
+       Enconder enconder = new Enconder();
+       Conexion conn = new Conexion();
+       conn.conectar();
+       
+       boolean flag = false;
+       
+       try{
+           
+           Resulset resul = conn.consultarReg("SELECT usuario, contrasena FROM usuario WHERE rol = 'admin'");
+           
+           while(resul.next()){
+               System.out.println(resul.getString("usuario"));
+               
+               
+           }
+           
+       }
+               
+    }
+             
+        
     
     public boolean crearUsuarioNew(UsuarioDTO usuarioDTO) {
         boolean flag = false;
