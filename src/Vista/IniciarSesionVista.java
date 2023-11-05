@@ -4,6 +4,9 @@
  */
 package Vista;
 
+import controlador.UsuarioControlador;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ESTEFANIAHURTADOOSPI
@@ -108,8 +111,17 @@ public class IniciarSesionVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        UsuarioControlador usuarioControlador = new UsuarioControlador();
-        
+       UsuarioControlador usuarioControlador = new UsuarioControlador();
+       String usu = txtUsuario.getText();
+       String contr = new String (txtPass.getPassword());
+       
+       if (usuarioControlador.validarUsuario(usu, contr)){
+           PrincipalVista principalVista = new PrincipalVista();
+           principalVista.setVisible(true);
+           this.dispose();
+       }else{
+           JOptionPane.showMessageDialog(null, "error en el usuario y/o contraseña");
+       }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed

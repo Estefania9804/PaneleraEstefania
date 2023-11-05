@@ -294,10 +294,10 @@
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
-            <StringItem index="0" value="-"/>
-            <StringItem index="1" value="Mar&#xed;timo"/>
-            <StringItem index="2" value="Terrestre"/>
-            <StringItem index="3" value="A&#xe9;reo"/>
+            <StringItem index="0" value="Seleccionar"/>
+            <StringItem index="1" value="MARITIMO"/>
+            <StringItem index="2" value="TERRESTRE"/>
+            <StringItem index="3" value="AEREO"/>
           </StringArray>
         </Property>
       </Properties>
@@ -308,11 +308,12 @@
     <Component class="javax.swing.JComboBox" name="cbxTipoPago">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="-"/>
-            <StringItem index="1" value="D&#xf3;lares"/>
-            <StringItem index="2" value="Euros"/>
-            <StringItem index="3" value="Peso colombiano"/>
+          <StringArray count="5">
+            <StringItem index="0" value="Seleccionar"/>
+            <StringItem index="1" value="EFECTIVO"/>
+            <StringItem index="2" value="CREDITO"/>
+            <StringItem index="3" value="DEBITO"/>
+            <StringItem index="4" value="PSE"/>
           </StringArray>
         </Property>
       </Properties>

@@ -5,8 +5,11 @@
 package Vista;
 
 import controlador.PedidoControlador;
+import controlador.UsuarioControlador;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import modelo.PedidoDTO;
 import modelo.UsuarioDTO;
@@ -54,33 +57,45 @@ public class EditarPedidoVista extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         cmbEmpleados = new javax.swing.JComboBox<>();
         cmbFuncionarios = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        lblCantidad.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblCantidad.setText("Cantidad");
 
+        lblPresentacion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblPresentacion.setText("Presentación");
 
+        lblTipoEnvio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTipoEnvio.setText("Tipo envio");
 
+        lblCiudadOrigen.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblCiudadOrigen.setText("Ciudad origen");
 
+        lblCiudadDestino.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblCiudadDestino.setText("Ciudad destino");
 
+        lblTipoPago.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTipoPago.setText("Tipo pago");
 
+        lblFechaEnvio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblFechaEnvio.setText("Fecha envío");
 
+        lblFechaEstimada.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblFechaEstimada.setText("Fecha estimada de entrega");
 
+        lblEmpleado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblEmpleado.setText("Empleado");
 
+        lblFuncioario.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblFuncioario.setText("Funcionario");
 
-        cbxTipoEnvio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Maritimo", "Terrestre", "Aéreo" }));
+        cbxTipoEnvio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "MARITIMO", "TERRESTRE", "AEREO" }));
 
-        cbxTipoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Dólares", "Euro", "Peso colombiano" }));
+        cbxTipoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "EFECTIVO", "CREDITO", "DEBITO", "PSE" }));
 
+        btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,12 +103,18 @@ public class EditarPedidoVista extends javax.swing.JFrame {
             }
         });
 
+        btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("EXPORTACIONES ESTEFANIA");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,16 +145,22 @@ public class EditarPedidoVista extends javax.swing.JFrame {
                     .addComponent(cbxTipoPago, 0, 190, Short.MAX_VALUE)
                     .addComponent(cmbEmpleados, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbFuncionarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRegresar)
-                    .addComponent(btnEditar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(51, 51, 51))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(205, 205, 205)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCantidad)
                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -175,7 +202,7 @@ public class EditarPedidoVista extends javax.swing.JFrame {
                                 .addComponent(lblFuncioario)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnEditar)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnRegresar)
@@ -200,7 +227,7 @@ public void setIdPedido(int idP) throws SQLException
         PedidoDTO pedidoDTO = pedidoControlador.consultarPedidoId(this.id);
         
                 
-        String cantidadTexto = txtCantidad.getText();
+        txtCantidad.setText(String.valueOf(pedidoDTO.getCantidad()));
         txtPresentacion.setText(pedidoDTO.getPresentacion());
         cbxTipoEnvio.setSelectedItem(pedidoDTO.getTipoEnvio());
         txtCiudadOrigen.setText(pedidoDTO.getCiudadOrigen());
@@ -212,9 +239,40 @@ public void setIdPedido(int idP) throws SQLException
         txtFechaEnvio.setText(dateFormat.format(pedidoDTO.getFechaEnvio()));
         txtFechaEstimada.setText(dateFormat.format(pedidoDTO.getFechaEstimadaEntrega()));
 
-              
-        cmbEmpleados.setSelectedItem(pedidoDTO.getEmpleadoID());
-        cmbFuncionarios.setSelectedItem(pedidoDTO.getFuncionarioID());
+         //Manejo de combos empleados y usuario
+        UsuarioControlador usuarioControlador = new UsuarioControlador();
+        ArrayList<UsuarioDTO> empleados = usuarioControlador.consultarUsuariosPorRol("Empleado");
+        DefaultComboBoxModel comboEmpleados = new DefaultComboBoxModel();
+        cmbEmpleados.setModel(comboEmpleados);
+        
+        // Setear los empleados al comboEmpleados
+        comboEmpleados.addElement(null);
+        for (UsuarioDTO empleadoDTO : empleados) {
+            comboEmpleados.addElement(empleadoDTO);
+            if  (empleadoDTO.getId() == pedidoDTO.getEmpleadoID()) {
+                cmbEmpleados.setSelectedItem(empleadoDTO);
+            }
+        }
+        
+        
+        ArrayList<UsuarioDTO> funcionarios = usuarioControlador.consultarUsuariosPorRol("Funcionario");
+        DefaultComboBoxModel comboFuncionarios = new DefaultComboBoxModel();
+        cmbFuncionarios.setModel(comboFuncionarios);
+     
+        // Setear los funcionarios al comboFuncionarios
+        comboFuncionarios.addElement(null);
+        for (UsuarioDTO funcionarioDTO : funcionarios) {
+            comboFuncionarios.addElement(funcionarioDTO);            
+            if (funcionarioDTO.getId() == pedidoDTO.getFuncionarioID()) {
+                cmbFuncionarios.setSelectedItem(funcionarioDTO);
+            }
+        }
+        
+        
+        
+        
+        
+        
 
     }
          
@@ -311,6 +369,7 @@ public void setIdPedido(int idP) throws SQLException
     private javax.swing.JComboBox<String> cbxTipoPago;
     private javax.swing.JComboBox<String> cmbEmpleados;
     private javax.swing.JComboBox<String> cmbFuncionarios;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblCantidad;
     private javax.swing.JLabel lblCiudadDestino;
     private javax.swing.JLabel lblCiudadOrigen;

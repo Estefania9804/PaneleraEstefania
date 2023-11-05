@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64.Encoder;
 import modelo.UsuarioDTO;
 
 /**
@@ -19,26 +20,35 @@ import modelo.UsuarioDTO;
  */
 public class UsuarioControlador {  
     
-    public boolean validarUsuario(String usuario, String contraseña){
-       Enconder enconder = new Enconder();
-       Conexion conn = new Conexion();
-       conn.conectar();
-       
-       boolean flag = false;
-       
-       try{
-           
-           Resulset resul = conn.consultarReg("SELECT usuario, contrasena FROM usuario WHERE rol = 'admin'");
-           
-           while(resul.next()){
-               System.out.println(resul.getString("usuario"));
-               
-               
-           }
-           
-       }
-               
-    }
+    public boolean validarUsuario(String usuario, String contraseña) {
+        //Encoder encoder = new Encoder();
+        Conexion conn = new Conexion();
+        conn.conectar();
+
+        boolean flag = false;
+
+        try{
+
+            ResultSet result = conn.consultarReg("SELECT usuario, contraseña FROM usuario WHERE rol IN ('admin','Empleado','Funcionario')");
+
+            while (result.next()) {
+                System.out.println(result.getString("usuario"));
+                System.out.println(result.getString("contraseña"));
+
+                if (usuario.equals(result.getString("usuario")) && contraseña.equals(result.getString("contraseña")))
+                {
+                    flag = true;
+                }
+            }
+        }catch(Exception e){
+                   System.out.println(e);
+                   }finally{
+                           conn.desconectar();
+                           }
+            return flag;
+        }
+
+    
              
         
     
@@ -119,6 +129,7 @@ public class UsuarioControlador {
         boolean flag = false;
         Conexion conn = new Conexion();
         conn.conectar();
+        
         
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String fechaNacimientoStr = dateFormat.format(usuarioDTO.getFechaNacimiento());

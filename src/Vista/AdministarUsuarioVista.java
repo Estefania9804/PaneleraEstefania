@@ -84,6 +84,7 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnEditarUsuario = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,6 +101,7 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tUsuarios);
 
+        btnCrearUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCrearUsuario.setText("Crear usuario");
         btnCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +109,7 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEliminar.setText("Eliminar usuario");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +117,7 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
             }
         });
 
+        btnEditarUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEditarUsuario.setText("Editar usuario");
         btnEditarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,12 +125,18 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
             }
         });
 
+        btnMenu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnMenu.setText("Menú principal");
         btnMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMenuActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("EXPORTACIONES ESTEFANIA");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -138,27 +148,33 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
                         .addGap(17, 17, 17)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(btnCrearUsuario)
-                        .addGap(40, 40, 40)
-                        .addComponent(btnEliminar)
-                        .addGap(55, 55, 55)
-                        .addComponent(btnEditarUsuario)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnMenu)))
+                        .addGap(256, 256, 256)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(23, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(btnCrearUsuario)
+                .addGap(18, 18, 18)
+                .addComponent(btnEliminar)
+                .addGap(18, 18, 18)
+                .addComponent(btnEditarUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnMenu)
+                .addGap(43, 43, 43))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCrearUsuario)
                     .addComponent(btnEliminar)
                     .addComponent(btnEditarUsuario)
-                    .addComponent(btnMenu))
+                    .addComponent(btnMenu)
+                    .addComponent(btnCrearUsuario))
                 .addGap(68, 68, 68))
         );
 
@@ -252,6 +268,7 @@ public class AdministarUsuarioVista extends javax.swing.JFrame {
     private javax.swing.JButton btnEditarUsuario;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnMenu;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tUsuarios;
     // End of variables declaration//GEN-END:variables

@@ -103,6 +103,7 @@ public class ListaPedidosVista extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("EXPORTACIONES ESTEFANIA");
 
+        btnCrearPedido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCrearPedido.setText("Crear pedido");
         btnCrearPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,7 +122,7 @@ public class ListaPedidosVista extends javax.swing.JFrame {
                 .addComponent(btnEliminar)
                 .addGap(18, 18, 18)
                 .addComponent(btnCrearPedido)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 399, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 378, Short.MAX_VALUE)
                 .addComponent(btnMenu)
                 .addGap(30, 30, 30))
             .addGroup(layout.createSequentialGroup()

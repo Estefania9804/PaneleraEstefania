@@ -133,9 +133,9 @@ public class CrearPedidoVista extends javax.swing.JFrame {
         });
 
         cbxTipoEnvio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        cbxTipoEnvio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Marítimo", "Terrestre", "Aéreo" }));
+        cbxTipoEnvio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "MARITIMO", "TERRESTRE", "AEREO" }));
 
-        cbxTipoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Dólares", "Euros", "Peso colombiano" }));
+        cbxTipoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "EFECTIVO", "CREDITO", "DEBITO", "PSE" }));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
@@ -320,6 +320,8 @@ public class CrearPedidoVista extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCrearActionPerformed
 
+    
+    
     private void cmbEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEmpleadosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbEmpleadosActionPerformed

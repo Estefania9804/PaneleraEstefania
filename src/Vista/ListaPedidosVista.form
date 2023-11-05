@@ -30,7 +30,7 @@
               <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnCrearPedido" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="399" max="32767" attributes="0"/>
+              <EmptySpace pref="378" max="32767" attributes="0"/>
               <Component id="btnMenu" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
@@ -144,6 +144,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnCrearPedido">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="14" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Crear pedido"/>
       </Properties>
       <Events>
