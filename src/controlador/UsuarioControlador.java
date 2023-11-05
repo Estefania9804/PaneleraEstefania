@@ -27,7 +27,7 @@ public class UsuarioControlador {
 
         boolean flag = false;
 
-        try{
+        try {
 
             ResultSet result = conn.consultarReg("SELECT usuario, contraseña FROM usuario WHERE rol IN ('admin','Empleado','Funcionario')");
 
@@ -40,13 +40,13 @@ public class UsuarioControlador {
                     flag = true;
                 }
             }
-        }catch(Exception e){
+        } catch(Exception e) {
                    System.out.println(e);
                    }finally{
                            conn.desconectar();
                            }
             return flag;
-        }
+    }
 
     
              
@@ -188,6 +188,44 @@ public class UsuarioControlador {
             }
         } catch (Exception e) {
             System.out.println(e);
+        } finally {
+            conn.desconectar();
+        }
+        return usuarioDTO;
+    }
+    
+    /**
+     * Metodo para consultar el usuario de la base de datos a partir del usuario y contraseña.
+     * @param usuario Usuario.
+     * @param contraseña Contrasena
+     * @return instancia de tipo UsuarioDTO.
+     * @throws SQLException.
+     */ 
+    public UsuarioDTO consultarPorUsuarioYContrasena(String usuario, String contraseña) throws SQLException {
+        ResultSet resul;
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        Conexion conn = new Conexion();
+        conn.conectar();
+
+        try {
+            resul = conn.consultarReg("SELECT * FROM panelera.usuario WHERE usuario = '" + usuario + "' AND contraseña = '" + contraseña + "';");
+            while (resul.next()) {
+                usuarioDTO.setId(resul.getInt("id"));
+                usuarioDTO.setNombres(resul.getString("nombres"));
+                usuarioDTO.setApellidos(resul.getString("apellidos"));
+                usuarioDTO.setTipoDocumento(resul.getString("tipoDocumento"));
+                usuarioDTO.setDocumento(resul.getString("documento"));
+                usuarioDTO.setFechaNacimiento(resul.getDate("fechaNacimiento"));
+                usuarioDTO.setCorreo(resul.getString("correo"));
+                usuarioDTO.setCelular(resul.getString("celular"));
+                usuarioDTO.setPais(resul.getString("pais"));
+                usuarioDTO.setCiudad(resul.getString("ciudad"));
+                usuarioDTO.setDireccion(resul.getString("direccion"));
+                usuarioDTO.setRol(resul.getString("rol"));
+                usuarioDTO.setCargo(resul.getString("cargo"));
+            }
+        } catch (Exception e) {
+            throw e;
         } finally {
             conn.desconectar();
         }

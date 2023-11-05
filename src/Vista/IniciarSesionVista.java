@@ -6,6 +6,7 @@ package Vista;
 
 import controlador.UsuarioControlador;
 import javax.swing.JOptionPane;
+import modelo.UsuarioDTO;
 
 /**
  *
@@ -115,13 +116,20 @@ public class IniciarSesionVista extends javax.swing.JFrame {
        String usu = txtUsuario.getText();
        String contr = new String (txtPass.getPassword());
        
-       if (usuarioControlador.validarUsuario(usu, contr)){
+       try {
+           UsuarioDTO usuarioDTO = usuarioControlador.consultarPorUsuarioYContrasena(usu, contr);
+           
            PrincipalVista principalVista = new PrincipalVista();
            principalVista.setVisible(true);
+           principalVista.rolActual = usuarioDTO.getRol();
+           if (!usuarioDTO.getRol().equals("Admin")) {
+               principalVista.btnAdministarUsuarios.setVisible(false);
+           }
            this.dispose();
-       }else{
+       } catch (Exception e) {
            JOptionPane.showMessageDialog(null, "error en el usuario y/o contraseña");
        }
+
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed

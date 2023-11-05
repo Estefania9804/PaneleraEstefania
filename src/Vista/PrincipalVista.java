@@ -14,6 +14,8 @@ import modelo.PedidoDTO;
  */
 public class PrincipalVista extends javax.swing.JFrame {
 
+    String rolActual;
+    
     /**
      * Creates new form PrincipalVista
      */
@@ -127,7 +129,11 @@ public class PrincipalVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevaExportaciónActionPerformed
 
     private void btnVerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPedidosActionPerformed
-        new ListaPedidosVista().setVisible(true);
+        ListaPedidosVista listaPedidosVista = new ListaPedidosVista();
+        listaPedidosVista.rolActual = this.rolActual;
+        
+        listaPedidosVista.setVisible(true);
+        
         this.dispose();
     }//GEN-LAST:event_btnVerPedidosActionPerformed
 
@@ -177,7 +183,7 @@ public class PrincipalVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdministarUsuarios;
+    public javax.swing.JButton btnAdministarUsuarios;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnNuevaExportación;
     private javax.swing.JButton btnVerPedidos;
