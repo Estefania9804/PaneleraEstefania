@@ -18,40 +18,9 @@ import modelo.UsuarioDTO;
  * 
  * 
  */
-public class UsuarioControlador {  
-    
-    public boolean validarUsuario(String usuario, String contraseña) {
-        //Encoder encoder = new Encoder();
-        Conexion conn = new Conexion();
-        conn.conectar();
-
-        boolean flag = false;
-
-        try {
-
-            ResultSet result = conn.consultarReg("SELECT usuario, contraseña FROM usuario WHERE rol IN ('admin','Empleado','Funcionario')");
-
-            while (result.next()) {
-                System.out.println(result.getString("usuario"));
-                System.out.println(result.getString("contraseña"));
-
-                if (usuario.equals(result.getString("usuario")) && contraseña.equals(result.getString("contraseña")))
-                {
-                    flag = true;
-                }
-            }
-        } catch(Exception e) {
-                   System.out.println(e);
-                   }finally{
-                           conn.desconectar();
-                           }
-            return flag;
-    }
-
-    
-             
-        
-    
+public class UsuarioControlador {     
+                 
+           
     public boolean crearUsuarioNew(UsuarioDTO usuarioDTO) {
         boolean flag = false;
         Conexion conn = new Conexion();
@@ -64,8 +33,8 @@ public class UsuarioControlador {
     
         int res = conn.ejecutarSentanciasql("INSERT INTO panelera.usuario (nombres, apellidos, tipoDocumento, documento, "
                 + "fechaNacimiento, correo, celular, pais, ciudad, direccion, rol, "
-                + "cargo) VALUES "
-                //+ "cargo, usuario, contraseña) VALUES "
+                + "cargo,usuario,contraseña) VALUES "
+                
                 + "('" +  usuarioDTO.getNombres() 
                 + "', '" + usuarioDTO.getApellidos() 
                 + "', '" + usuarioDTO.getTipoDocumento() 
@@ -78,8 +47,8 @@ public class UsuarioControlador {
 		+ "', '" + usuarioDTO.getDireccion()
 		+ "', '" + usuarioDTO.getRol()
 		+ "', '" + usuarioDTO.getCargo()
-//		+ "', " + usuarioDTO.getUsuario()
-//		+ "', " + usuarioDTO.getContraseña()
+		+ "', '" + usuarioDTO.getUsuario()
+		+ "', '" + usuarioDTO.getContraseña()
                 + "');");
         if (res == 1) {
             System.out.println("Usuario creado con exito");
@@ -201,16 +170,22 @@ public class UsuarioControlador {
      * @return instancia de tipo UsuarioDTO.
      * @throws SQLException.
      */ 
-    public UsuarioDTO consultarPorUsuarioYContrasena(String usuario, String contraseña) throws SQLException {
-        ResultSet resul;
-        UsuarioDTO usuarioDTO = new UsuarioDTO();
-        Conexion conn = new Conexion();
-        conn.conectar();
+   public UsuarioDTO consultarPorUsuarioYContrasena(String usuario, String contraseña) throws SQLException, Exception {
+    ResultSet resul;
+    UsuarioDTO usuarioDTO = new UsuarioDTO();
+    Funciones.Encoder encoder = new Funciones.Encoder();
+    Conexion conn = new Conexion();
+    conn.conectar();
 
-        try {
-            resul = conn.consultarReg("SELECT * FROM panelera.usuario WHERE usuario = '" + usuario + "' AND contraseña = '" + contraseña + "';");
-            while (resul.next()) {
-                usuarioDTO.setId(resul.getInt("id"));
+    try {
+        // Desencriptar la contraseña utilizando el método desencriptar de la clase Encoder
+        String contraseñaD = encoder.decrypt(contraseña);
+
+        // Utilizar la contraseña desencriptada en la consulta SQL
+        resul = conn.consultarReg("SELECT * FROM panelera.usuario WHERE usuario = '" + usuario + "' AND contraseña = '" + contraseñaD + "';");
+
+        while (resul.next()) {
+             usuarioDTO.setId(resul.getInt("id"));
                 usuarioDTO.setNombres(resul.getString("nombres"));
                 usuarioDTO.setApellidos(resul.getString("apellidos"));
                 usuarioDTO.setTipoDocumento(resul.getString("tipoDocumento"));
@@ -223,14 +198,15 @@ public class UsuarioControlador {
                 usuarioDTO.setDireccion(resul.getString("direccion"));
                 usuarioDTO.setRol(resul.getString("rol"));
                 usuarioDTO.setCargo(resul.getString("cargo"));
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            conn.desconectar();
+            
         }
-        return usuarioDTO;
+    } catch (Exception e) {
+        throw e;
+    } finally {
+        conn.desconectar();
     }
+    return usuarioDTO;
+}
      
     /**
      * Metodo para consultar los usuarios.

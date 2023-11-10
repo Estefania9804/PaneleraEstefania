@@ -124,8 +124,13 @@ public class PrincipalVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevaExportaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaExportaciónActionPerformed
-        new CrearPedidoVista().setVisible(true);
+        CrearPedidoVista crearPedidoVista =new CrearPedidoVista();
+        crearPedidoVista.rolActual = this.rolActual;
+        
+        crearPedidoVista.setVisible(true);
+        
         this.dispose();
+        
     }//GEN-LAST:event_btnNuevaExportaciónActionPerformed
 
     private void btnVerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPedidosActionPerformed

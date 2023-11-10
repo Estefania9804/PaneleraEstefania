@@ -18,6 +18,8 @@ import modelo.UsuarioDTO;
  * @author ESTEFANIAHURTADOOSPI
  */
 public class CrearPedidoVista extends javax.swing.JFrame {
+    
+    String rolActual;
 
     /**
      * Creates new form CreacionPedidoVista
@@ -273,8 +275,15 @@ public class CrearPedidoVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
-        new PrincipalVista().setVisible(true);
+        PrincipalVista principalVista = new PrincipalVista();
+        principalVista.rolActual = this.rolActual;
+        if (!rolActual.equals("Admin")) {
+            principalVista.btnAdministarUsuarios.setVisible(false);
+        }
+        principalVista.setVisible(true);
+        
         this.dispose();
+        
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
