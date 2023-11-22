@@ -4,10 +4,24 @@
  */
 package Funciones;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author estefania
  */
 public class Validaciones {
+    
+    public boolean validarEmail(String correo){
+        
+        //patron para validar el correo
+        Pattern pattern = Pattern.compile("^[_A-Za-z0-9\\+]+(\\.[_A-Za-z0-9]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher match = pattern.matcher(correo);
+        return match.find();
+        
+    }
+            
+            
     
 }

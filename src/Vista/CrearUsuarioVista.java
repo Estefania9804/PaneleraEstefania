@@ -6,6 +6,7 @@ package Vista;
 
 
 import Funciones.Encoder;
+import Funciones.Validaciones;
 import controlador.UsuarioControlador;
 import java.sql.Date;
 import java.text.ParseException;
@@ -264,59 +265,95 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
     
         try {                                         
-            
-            UsuarioDTO usuarioDTO = new UsuarioDTO();
-            Encoder encoder = new Encoder();
-            
-            usuarioDTO.setNombres(txtNombres.getText());
-            usuarioDTO.setApellidos(txtApellidos.getText());
-            usuarioDTO.setTipoDocumento(cbxTipoDocumento.getSelectedItem().toString());
-            usuarioDTO.setDocumento(txtDocumento.getText());
-            
-            // Manejo de Fecha.
-            // Verifica si el campo de fecha de nacimiento no está vacío
-            if (txtFechaNacimiento.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debe ingresar una fecha de nacimiento válida.");
-                return;
-            }
-            
-            // Define el formato de la cadena
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                // Parsea la cadena y obtén un objeto Date
-                usuarioDTO.setFechaNacimiento(dateFormat.parse(txtFechaNacimiento.getText()));
-            } catch (Exception e) {
-                System.out.println("Hubo un error al convertir la cadena en Date: " + e.getMessage());
-            }
-            
-            usuarioDTO.setCorreo(txtCorreo.getText());
-            usuarioDTO.setCelular(txtCelular.getText());
-            usuarioDTO.setPais(txtPais.getText());
-            usuarioDTO.setCiudad(txtCiudad.getText());
-            usuarioDTO.setDireccion(txtDireccion.getText());
-            usuarioDTO.setRol(cbxRol.getSelectedItem().toString());
-            usuarioDTO.setCargo(txtCargo.getText());
-            usuarioDTO.setUsuario(txtUsuario.getText());
-            usuarioDTO.setContraseña(encoder.encrypt(txtContraseña.getText()));
-            
-            UsuarioControlador usuarioControlador = new UsuarioControlador();
-            try {
-                boolean flag = usuarioControlador.crearUsuarioNew(usuarioDTO);
-                
-                if (flag) {
-                    JOptionPane.showMessageDialog(this, "Usuario creado con éxito");
-                    new AdministarUsuarioVista().setVisible(true);
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "No se pudo crear el usuario");
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Error al crear el usuario: " + e.getMessage());
-            }
-            
-        } catch (Exception ex) {
-            Logger.getLogger(CrearUsuarioVista.class.getName()).log(Level.SEVERE, null, ex);
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        Encoder encoder = new Encoder();
+        Validaciones validaciones = new Validaciones();
+        
+        // Validaciones adicionales
+        if (txtNombres.getText().trim().equals("") || 
+            txtApellidos.getText().trim().equals("") || 
+            txtPais.getText().trim().equals("") || 
+            txtCiudad.getText().trim().equals("") || 
+            txtDireccion.getText().trim().equals("") || 
+            txtUsuario.getText().trim().equals("") || 
+            txtContraseña.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Todos los campos deben ser completados.");
+            return;
         }
+        
+        // Validar ComboBox TipoDocumento
+        if (cbxTipoDocumento.getSelectedIndex() == 0) {
+           JOptionPane.showMessageDialog(null, "Seleccione un tipo de documento.");
+           return;
+        }
+
+        // Validar ComboBox Rol
+        if (cbxRol.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un rol.");
+             return;
+        }
+        
+        
+        
+        if (!validaciones.validarEmail(txtCorreo.getText())) {
+            JOptionPane.showMessageDialog(this, "Ingrese un correo electrónico válido.");
+            return;
+        }
+
+        if (txtCelular.getText().length() == 0 || !txtCelular.getText().matches("[0-9]*")) {
+            JOptionPane.showMessageDialog(this, "Ingrese un número de celular válido.");
+            return;
+        }
+        
+        usuarioDTO.setNombres(txtNombres.getText());
+        usuarioDTO.setApellidos(txtApellidos.getText());
+        usuarioDTO.setTipoDocumento(cbxTipoDocumento.getSelectedItem().toString());
+        usuarioDTO.setDocumento(txtDocumento.getText());
+        
+        // Manejo de Fecha.
+        // Verifica si el campo de fecha de nacimiento no está vacío
+        if (txtFechaNacimiento.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar una fecha de nacimiento válida.");
+            return;
+        }
+        
+        // Define el formato de la cadena
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            // Parsea la cadena y obtén un objeto Date
+            usuarioDTO.setFechaNacimiento(dateFormat.parse(txtFechaNacimiento.getText()));
+        } catch (Exception e) {
+            System.out.println("Hubo un error al convertir la cadena en Date: " + e.getMessage());
+        }
+        
+        usuarioDTO.setCorreo(txtCorreo.getText());
+        usuarioDTO.setCelular(txtCelular.getText());
+        usuarioDTO.setPais(txtPais.getText());
+        usuarioDTO.setCiudad(txtCiudad.getText());
+        usuarioDTO.setDireccion(txtDireccion.getText());
+        usuarioDTO.setRol(cbxRol.getSelectedItem().toString());
+        usuarioDTO.setCargo(txtCargo.getText());
+        usuarioDTO.setUsuario(txtUsuario.getText());
+        usuarioDTO.setContraseña(encoder.encrypt(txtContraseña.getText()));
+        
+        UsuarioControlador usuarioControlador = new UsuarioControlador();
+        try {
+            boolean flag = usuarioControlador.crearUsuarioNew(usuarioDTO);
+            
+            if (flag) {
+                JOptionPane.showMessageDialog(this, "Usuario creado con éxito");
+                new AdministarUsuarioVista().setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo crear el usuario");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al crear el usuario: " + e.getMessage());
+        }
+        
+    } catch (Exception ex) {
+        Logger.getLogger(CrearUsuarioVista.class.getName()).log(Level.SEVERE, null, ex);
+    }
         
     }//GEN-LAST:event_btnCrearActionPerformed
 

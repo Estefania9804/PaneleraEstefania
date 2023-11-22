@@ -99,14 +99,14 @@ public class IniciarSesionVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-       UsuarioControlador usuarioControlador = new UsuarioControlador();
+          UsuarioControlador usuarioControlador = new UsuarioControlador();
        Funciones.Encoder encoder = new Funciones.Encoder();
        String usu = txtUsuario.getText();
        String contr = new String (txtPass.getPassword());
        
        try {
-           String contraseñaD = encoder.decrypt(contr);
-           UsuarioDTO usuarioDTO = usuarioControlador.consultarPorUsuarioYContrasena(usu, contr);
+           String contrasenaEncriptada = encoder.encrypt(contr);
+           UsuarioDTO usuarioDTO = usuarioControlador.consultarPorUsuarioYContrasena(usu, contrasenaEncriptada);
            
            PrincipalVista principalVista = new PrincipalVista();
            principalVista.setVisible(true);
@@ -116,6 +116,7 @@ public class IniciarSesionVista extends javax.swing.JFrame {
            }
            this.dispose();
        } catch (Exception e) {
+            e.printStackTrace();
            JOptionPane.showMessageDialog(null, "error en el usuario y/o contraseña");
        }
 

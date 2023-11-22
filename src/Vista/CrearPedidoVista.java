@@ -287,46 +287,101 @@ public class CrearPedidoVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        PedidoDTO pedidoDTO = new PedidoDTO();
-        
-        pedidoDTO.setCantidad(Integer.parseInt(txtCantidad.getText()));
-        pedidoDTO.setPresentacion(txtPresentacion.getText());
-        pedidoDTO.setTipoEnvio(cbxTipoEnvio.getSelectedItem().toString());
-        pedidoDTO.setCiudadOrigen(txtCiudadOrigen.getText());
-        pedidoDTO.setCiudadDestino(txtCiudadDestino.getText());
-        pedidoDTO.setTipoPago(cbxTipoPago.getSelectedItem().toString());
-        
-        // Manejo de Fechas
-        // Define el formato de la cadena
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            // Parsea la cadena y obtén un objeto Date
-            pedidoDTO.setFechaEnvio( dateFormat.parse(txtFechaEnvio.getText()));
-            pedidoDTO.setFechaEstimadaEntrega(dateFormat.parse(txtFechaEstimada.getText()));
-        } catch (Exception e) {
-            System.out.println("Hubo un error al convertir la cadena en Date: " + e.getMessage());
-        }
-        
-        // Manejo datos de los Usuarios
-        UsuarioDTO empleadoDTO = (UsuarioDTO) cmbEmpleados.getSelectedItem();
-        pedidoDTO.setEmpleadoID(empleadoDTO.getId());
-        
-        UsuarioDTO funcionarioDTO = (UsuarioDTO) cmbFuncionarios.getSelectedItem();
-        pedidoDTO.setFuncionarioID(funcionarioDTO.getId());
-        
-        PedidoControlador pedidoControlador = new PedidoControlador();
-        
-        boolean exito = pedidoControlador.crearPedido(pedidoDTO);
+         PedidoDTO pedidoDTO = new PedidoDTO();
+    
+    // Validaciones adicionales
+    if (txtPresentacion.getText().trim().equals("") || 
+        txtCiudadOrigen.getText().trim().equals("") || 
+        txtCiudadDestino.getText().trim().equals("") ||             
+        txtCiudadDestino.getText().trim().equals("")) {
+        JOptionPane.showMessageDialog(this, "Todos los campos deben ser completados.");
+        return;
+    }
 
-        if (exito) {
-            // El pedido se creó con éxito
-            JOptionPane.showMessageDialog(this, "Pedido creado con éxito");
-            new ListaPedidosVista().setVisible(true);
-            this.dispose();            
-        } else {
-            // Hubo un error al crear el pedido
-            JOptionPane.showMessageDialog(this, "No se pudo crear el pedido");
+    // Validar ComboBox TipoEnvio
+    if (cbxTipoEnvio.getSelectedIndex() == 0) {
+       JOptionPane.showMessageDialog(null, "Seleccione un tipo de envío.");
+       return;
+    }
+
+    // Validar ComboBox TipoPago
+    if (cbxTipoPago.getSelectedIndex() == 0) {
+        JOptionPane.showMessageDialog(null, "Seleccione un tipo de pago.");
+         return;
+    }
+
+    // Validar ComboBox Funcionario
+    if (cmbFuncionarios.getSelectedIndex() == 0) {
+        JOptionPane.showMessageDialog(null, "Seleccione un funcionario.");
+         return;
+    }
+
+    // Validar ComboBox Empleados
+    if (cmbEmpleados.getSelectedIndex() == 0) {
+        JOptionPane.showMessageDialog(null, "Seleccione un empleado.");
+         return;
+    }
+
+    // Validar cantidad
+    if (txtCantidad.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Ingrese una cantidad válida.");
+        return;
+    }
+
+    try {
+        int cantidad = Integer.parseInt(txtCantidad.getText());
+
+        // Verificar si la cantidad es positiva
+        if (cantidad <= 0) {
+            JOptionPane.showMessageDialog(this, "La cantidad debe ser un número entero positivo.");
+            return;
         }
+
+        // Si la cantidad es válida, asignarla al pedidoDTO
+        pedidoDTO.setCantidad(cantidad);
+    } catch (NumberFormatException e) {
+        // Si ocurre una excepción al intentar convertir a entero, mostrar un mensaje de error
+        JOptionPane.showMessageDialog(this, "Ingrese una cantidad válida (número entero).");
+        return;
+    }
+
+    pedidoDTO.setPresentacion(txtPresentacion.getText());
+    pedidoDTO.setTipoEnvio(cbxTipoEnvio.getSelectedItem().toString());
+    pedidoDTO.setCiudadOrigen(txtCiudadOrigen.getText());
+    pedidoDTO.setCiudadDestino(txtCiudadDestino.getText());
+    pedidoDTO.setTipoPago(cbxTipoPago.getSelectedItem().toString());
+
+    // Manejo de Fechas
+    // Define el formato de la cadena
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    try {
+        // Parsea la cadena y obtén un objeto Date
+        pedidoDTO.setFechaEnvio( dateFormat.parse(txtFechaEnvio.getText()));
+        pedidoDTO.setFechaEstimadaEntrega(dateFormat.parse(txtFechaEstimada.getText()));
+    } catch (Exception e) {
+        System.out.println("Hubo un error al convertir la cadena en Date: " + e.getMessage());
+    }
+
+    // Manejo datos de los Usuarios
+    UsuarioDTO empleadoDTO = (UsuarioDTO) cmbEmpleados.getSelectedItem();
+    pedidoDTO.setEmpleadoID(empleadoDTO.getId());
+
+    UsuarioDTO funcionarioDTO = (UsuarioDTO) cmbFuncionarios.getSelectedItem();
+    pedidoDTO.setFuncionarioID(funcionarioDTO.getId());
+
+    PedidoControlador pedidoControlador = new PedidoControlador();
+    
+    boolean exito = pedidoControlador.crearPedido(pedidoDTO);
+
+    if (exito) {
+        // El pedido se creó con éxito
+        JOptionPane.showMessageDialog(this, "Pedido creado con éxito");
+        new ListaPedidosVista().setVisible(true);
+        this.dispose();            
+    } else {
+        // Hubo un error al crear el pedido
+        JOptionPane.showMessageDialog(this, "No se pudo crear el pedido");
+    }
     }//GEN-LAST:event_btnCrearActionPerformed
 
     

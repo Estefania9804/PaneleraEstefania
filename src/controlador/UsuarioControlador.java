@@ -178,11 +178,10 @@ public class UsuarioControlador {
     conn.conectar();
 
     try {
-        // Desencriptar la contraseña utilizando el método desencriptar de la clase Encoder
-        String contraseñaD = encoder.decrypt(contraseña);
+      
 
         // Utilizar la contraseña desencriptada en la consulta SQL
-        resul = conn.consultarReg("SELECT * FROM panelera.usuario WHERE usuario = '" + usuario + "' AND contraseña = '" + contraseñaD + "';");
+        resul = conn.consultarReg("SELECT * FROM panelera.usuario WHERE usuario = '" + usuario + "' AND contraseña = '" + contraseña + "';");
 
         while (resul.next()) {
              usuarioDTO.setId(resul.getInt("id"));
